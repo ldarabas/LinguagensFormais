@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <meta charset="UTF-8">
     <title>Cabeça de gelo</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style src="index.css"></style>
-</head>
+  </head>
 
-<body>
+  <body>
 
     <div class="row">
-        <div class="input-field col s4 offset-s4">
-            <input id="nterm" type="text" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip='Separe os valores com uma vírgula. =)'>
-            <label for="nterm">Símbolos não terminais</label>
-        </div>
+      <div class="input-field col s4 offset-s4">
+        <input id="nterm" type="text" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip='Separe os valores com uma vírgula. =)'>
+        <label for="nterm">Símbolos não terminais</label>
+      </div>
     </div>
     <div class="row">
-        <div class="input-field col s4 offset-s4">
-            <input id="term" type="text" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip='Separe os valores com uma vírgula. Utilize "&" para representar o vazio. ;)'>
-            <label for="term">Símbolos terminais</label>
-        </div>
+      <div class="input-field col s4 offset-s4">
+        <input id="term" type="text" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip='Separe os valores com uma vírgula. Utilize "&" para representar o vazio. ;)'>
+        <label for="term">Símbolos terminais</label>
+      </div>
     </div>
     <div class="row">
-        <div class="input-field col s4 offset-s4">
-            <select id="inicial">
-      <option value="" disabled selected>Selecione</option>
-    </select>
-            <label>Símbolo inicial</label>
-        </div>
+      <div class="input-field col s4 offset-s4">
+        <select id="inicial">
+          <option value="" disabled selected>Selecione</option>
+        </select>
+        <label>Símbolo inicial</label>
+      </div>
 
 
     </div>
     <h4 class="center">Crie sua gramática</h4>
     <div class="content-select">
-        <div class="row" id="copy-select">
-            <div class="input-field col s2 offset-s4" id="select0">
-                <select id="select-gramatica select0" class="select-g">
-  <option value="-1" disabled selected>Selecione</option>
-</select>
-                <label>Produções não terminais</label>
-            </div>
-            <div class="col s1 center">
-                <i class="material-icons medium" style="margin-top:10px">trending_flat</i>
-            </div>
-            <div class="input-field col s2">
-                <input class="ldir" type="text" class="validate">
-                <label for="ldir">Lado direito</label>
-            </div>
-
+      <div class="row" id="copy-select">
+        <div class="input-field col s2 offset-s4" id="select0">
+          <select id="select-gramatica select0" class="select-g">
+            <option value="-1" disabled selected>Selecione</option>
+          </select>
+          <label>Produções não terminais</label>
         </div>
+        <div class="col s1 center">
+          <i class="material-icons medium" style="margin-top:10px">trending_flat</i>
+        </div>
+        <div class="input-field col s2">
+          <input class="ldir" type="text" class="validate">
+          <label for="ldir">Lado direito</label>
+        </div>
+
+      </div>
     </div>
 
     <div class="row">
-        <div class="input-field col s4 offset-s5">
-            <a class="waves-effect waves-light btn" id="add">Adicionar</a>
-            <a class="waves-effect waves-light btn" id="submit">Submeter</a>
+      <div class="input-field col s4 offset-s5">
+        <a class="waves-effect waves-light btn" id="add">Adicionar</a>
+        <a class="waves-effect waves-light btn" id="submit">Submeter</a>
 
-        </div>
+      </div>
     </div>
 
 
@@ -66,43 +66,43 @@
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
-        <div class="modal-content center">
-            <h4 class="red-text">Oops, um erro ocorreu!</h4>
-            <br>
-            <h5>Insira corretamente os símbolos não terminais!</h5>
-            <h5>Com os valores maiúsculo, tamanho um e sem repetir.</h5>
-            <h5>Use uma vírgula para separar ;)</h5>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
-        </div>
+      <div class="modal-content center">
+        <h4 class="red-text">Oops, um erro ocorreu!</h4>
+        <br>
+        <h5>Insira corretamente os símbolos não terminais!</h5>
+        <h5>Com os valores maiúsculo, tamanho um e sem repetir.</h5>
+        <h5>Use uma vírgula para separar ;)</h5>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+      </div>
     </div>
 
     <!-- Modal Structure -->
     <div id="modal2" class="modal">
-        <div class="modal-content center">
-            <h4 class="red-text">Oops, um erro ocorreu!</h4>
-            <br>
-            <h5>Insira corretamente os símbolos terminais</h5>
-            <h5>Com os valores de tamanho um, diferentes de maiúsculo e sem repetir.</h5>
-            <h5>Use uma vírgula para separar ;)</h5>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
-        </div>
+      <div class="modal-content center">
+        <h4 class="red-text">Oops, um erro ocorreu!</h4>
+        <br>
+        <h5>Insira corretamente os símbolos terminais</h5>
+        <h5>Com os valores de tamanho um, diferentes de maiúsculo e sem repetir.</h5>
+        <h5>Use uma vírgula para separar ;)</h5>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+      </div>
     </div>
 
 
-<!-- Modal Structure -->
+    <!-- Modal Structure -->
     <div id="modal3" class="modal">
-        <div class="modal-content center">
-            <h4 class="red-text">Oops, um erro ocorreu!</h4>
-            <br>
-            <h5>Verifique as informações, pois há erros!</h5>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
-        </div>
+      <div class="modal-content center">
+        <h4 class="red-text">Oops, um erro ocorreu!</h4>
+        <br>
+        <h5>Verifique as informações, pois há erros!</h5>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+      </div>
     </div>
 
 
@@ -111,6 +111,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
     <script type="text/javascript" src="index.js"></script>
-</body>
+  </body>
 
 </html>
