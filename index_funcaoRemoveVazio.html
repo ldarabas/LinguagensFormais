@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Teste</title>
+</head>
+	<script type="text/javascript">
+		var Producao = function(estado, prod, isInicial){
+			this.estado = estado;
+			this.prod = prod;
+			this.isInicial = isInicial;
+		}
+
+		function verificarEstadosVazios(producoes){
+			var prod0 = new Producao("S", "aAb", true);
+			var prod1 = new Producao("A", "bA", false);
+			var prod2 = new Producao("A", "bb", false);
+			var prod3 = new Producao("A", "&", false);
+
+			producoes = [prod0, prod1, prod2, prod3];
+			
+			var estadosComVazio = [];
+			// Armazena os estados com vazio
+			for(var i = 0, j = 0; i < producoes.length; i++){
+				if (producoes[i].prod === "&") {
+                	estadosComVazio[j] = producoes[i].estado;
+                	producoes.splice(i, 1);
+                	j++;
+				}
+			}
+
+			// Gera novas produções onde contém vazio
+			for(var i = 0; i < producoes.length; i++){
+				for (var j = 0 ; j < estadosComVazio.length; j++) {
+					var str = producoes[i].prod;
+					if (str.indexOf(estadosComVazio[j]) > -1) {
+            			var novaProd = "";
+            			for (var k = 0; k < producoes[i].prod.length; k++){
+            				if (producoes[i].prod[k] !== estadosComVazio[j]){
+            					novaProd += producoes[i].prod[k];
+            				}
+            			}
+            			var novaProdObj = new Producao(producoes[i].estado, novaProd, producoes[i].isInicial);
+            			producoes.push(novaProdObj);
+                	}
+				}
+			}
+
+			for (var i = 0; i < producoes.length; i++){
+				console.log(producoes[i].estado + " " + producoes[i].prod + " " + producoes[i].isInicial);
+			}
+
+
+		}
+	</script>
+<body>
+	<input type="submit" name="asçdjaslçjdasljda" onclick="verificarEstadosVazios();">
+</body>
+</html>
