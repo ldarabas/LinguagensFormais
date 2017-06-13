@@ -11,21 +11,16 @@
 		}
 
 		function verificarEstadosVazios(producoes){
-			var prod0 = new Producao("J", "aABcD", true);
-			var prod1 = new Producao("J", "aBcA", true);
-			var prod2 = new Producao("J", "bCc", true);
-			var prod3 = new Producao("A", "bAbD", false);
-			var prod4 = new Producao("A", "bb", false);
+			var prod0 = new Producao("S", "aAbB", true);
+			var prod1 = new Producao("S", "aA", true);
+			var prod2 = new Producao("S", "a", true);
+			var prod3 = new Producao("A", "aBb", false);
+			var prod4 = new Producao("A", "bbA", false);
 			var prod5 = new Producao("A", "&", false);
-			var prod6 = new Producao("B", "bDaA", false);
-			var prod7 = new Producao("B", "bBBa", false);
-			var prod8 = new Producao("B", "bDba", false);
-			var prod9 = new Producao("B", "ba", false);
-			var prod10 = new Producao("B", "b", false);
-			var prod11 = new Producao("D", "bB", false);
-			var prod12 = new Producao("D", "&", false);
+			var prod6 = new Producao("B", "bAa", false);
+			var prod7 = new Producao("B", "aa", false);
 
-			producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11, prod12];
+			producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7];
 			
 			var estadosComVazio = [];
 			// Armazena os estados com vazio
@@ -64,6 +59,15 @@
 				// Limpa o array auxiliar
 				producoesAux.splice(0, producoesAux.length - 1);
 			}
+
+			// Remove possíveis produções que ficarão repetidas
+			for (var i = 0; i < producoes.length; i++){
+				for (var j = i + 1; j < producoes.length; j++){
+					if (producoes[i].estado === producoes[j].estado && producoes[i].prod === producoes[j].prod){
+						producoes.splice(j, 1);
+					}
+				}
+			}			
 
 			// Mostra no console como ficou as produções
 			for (var i = 0; i < producoes.length; i++){
