@@ -6,3 +6,11 @@
 .wrong+label {
     color: red !important;
 }
+
+.tabs .tab.disabled a{
+   color: gray!important;
+}
+
+.tabs .indicator{
+    background-color: #808080;
+}
