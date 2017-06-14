@@ -5,6 +5,10 @@ var producao = [];
 var errTerm;
 var errNTerm;
 var inicial;
+var tabActive;
+
+
+
 
 $(document).ready(function () {
   $('select').material_select();
@@ -19,18 +23,24 @@ $(document).ready(function () {
     }
   });
   $('#modal3').modal();
+  $('#modal4').modal();
 
   $('.tooltipped').tooltip({
     delay: 50
   });
 
+
+  $('ul.tabs').tabs('select_tab', 'tab_id');
+
   errTerm = false;
   errNTerm = false;
+  tabActive = false;
+
 });
 
 $('#add').on('click', function () {
   novo = $('.content-select').append('<div class="row"><div class="input-field col s2 offset-s4" id="select' + count + '"><label>Produções não terminais</label></div><div class="col s1 center"><i class="material-icons medium" style="margin-top:10px">trending_flat</i></div><div class="input-field col s2"><input class="ldir" type="text" class="validate"><label for="ldir">Lado direito</label></div></div>')
-  $('#copy-select select').clone().prependTo('#select' + count).attr('id','select' + count);
+  $('#copy-select select').clone().prependTo('#select' + count).attr('id', 'select' + count);
   count += 1;
   console.log(count);
   $('select').material_select();
@@ -68,9 +78,9 @@ $('#nterm').on('focusout', function () {
   });
   if (error === false) {
     callOkMessage();
-    $('select').each(function(){$(this).empty().html('<option value="-1" disabled selected>Selecione</option>')});
+    $('select').each(function () { $(this).empty().html('<option value="-1" disabled selected>Selecione</option>') });
     $.each(nterm, function (i, val) {
-      $('select').each(function(){$(this).append($("<option></option>").attr("value", i).text(val))});
+      $('select').each(function () { $(this).append($("<option></option>").attr("value", i).text(val)) });
     });
     $('select').material_select();
     if ($(this).hasClass('wrong')) {
@@ -150,30 +160,30 @@ function lancarModal(modal) {
 }
 
 $('#submit').on('click', function () {
-  tempCounter=0;
+  tempCounter = 0;
   producao = []; //seta array vazio
   $('.ldir').each(function (i, val) {
-    var select = $('select', $('#select'+tempCounter++)).val();
+    var select = $('select', $('#select' + tempCounter++)).val();
     if (val.value == "") {
       lancarModal(3);
       return;
     }
 
-    if(select == null){ //um ou mais select ficaram sem ser(em) selecionado(s)
+    if (select == null) { //um ou mais select ficaram sem ser(em) selecionado(s)
       lancarModal(3);
       return;
     }
 
-    for(j=0; j<val.value.length;j++){
+    for (j = 0; j < val.value.length; j++) {
       notFound = true;
-      for(k=0; k<term.length; k++){
+      for (k = 0; k < term.length; k++) {
         //console.log(term[k]);
         //console.log(val.value[j]);
-        if(val.value[j]==term[k]){
+        if (val.value[j] == term[k]) {
           notFound = false;
         }
       }
-      if(notFound){
+      if (notFound) {
         lancarModal(3);
         return;
       }
@@ -185,16 +195,35 @@ $('#submit').on('click', function () {
       inicial: false
     });
 
-    if($('select')[0].value==$('.select-g select').get(i).value){
+    if ($('select')[0].value == $('.select-g select').get(i).value) {
       producao[i].inicial = true;
     }
-
   });
   if (producao.length != 0) {
-    console.log(producao);
+    setTabActive();
   }
 });
 
+$('#tab').on('click', function () {
+  if (!tabActive) {
+    lancarModal(4);
+  }
+});
+
+function setTabActive() {
+  tabs = ["tab-1", "tab-2", "tab-3"];
+  tabsBody = ["tab-vazio", "tab-unitaria", "tab-inuteis"];
+  for (var i = 0; i < tabs.length; i++) {
+    tab = '#' + tabs[i];
+    tabB = '#' + tabsBody[i];
+    $(tab).removeClass("disabled");
+    $(tabB).html(tabsBody[i]);
+
+
+  }
+  $('.tabs .indicator').css('background-color', '#f6b2b5');
+  tabActive = true;
+}
 /*
 function teste() {
   var i = 0;
