@@ -6,7 +6,8 @@ var errTerm;
 var errNTerm;
 var inicial;
 var tabActive;
-
+var audio = new Audio('audio/audio.mp3');
+var audio2 = new Audio('audio/audio2.mp3');
 
 
 
@@ -156,6 +157,7 @@ function verificaMinusculo(str) {
 }
 
 function lancarModal(modal) {
+  audio.play();
   $('#modal' + modal).modal('open');
 }
 
@@ -201,6 +203,7 @@ $('#submit').on('click', function () {
   });
   if (producao.length != 0) {
     setTabActive();
+    audio2.play();
   }
 });
 
