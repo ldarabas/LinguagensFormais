@@ -9,7 +9,8 @@
 			this.prod = prod;
 			this.isInicial = isInicial;
 		}
-		function verificarEstadosVazios(producoes){
+
+		function teste(){
 			var prod0 = new Producao("J", "aABcD", true);
 			var prod1 = new Producao("J", "aBcA", true);
 			var prod2 = new Producao("J", "bCc", true);
@@ -23,50 +24,64 @@
 			var prod10 = new Producao("B", "b", false);
 			var prod11 = new Producao("D", "bB", false);
 			var prod12 = new Producao("D", "&", false);
-			producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11, prod12];
 			
+			var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11, prod12];
+			removeEstadosVazios(producoes);
+		}
+
+		function removeEstadosVazios(producoes){
+			// Mostra no console as produções antes de eliminar vazios
+			console.log("Procuções antes de eliminar os vazios: ");
+			imprime(producoes);
+
 			var estadosComVazio = [];
-			// Armazena os estados com vazio
+			// Armazena os estados com vazio em um array auxiliar
 			for(var i = 0, j = 0; i < producoes.length; i++){
 				if (producoes[i].prod === "&") {
-                	estadosComVazio[j] = producoes[i].estado;
-                	producoes.splice(i, 1);
-                	j++;
+	            	estadosComVazio[j] = producoes[i].estado;
+	            	producoes.splice(i, 1);
+	            	j++;
 				}
 			}
+
 			var producoesAux = [];
 			// Gera novas produções onde contém vazio, e armazena no array de produções auxiliares
 			for(var i = 0; i < producoes.length; i++){
 				for (var j = 0 ; j < estadosComVazio.length; j++) {
-					var str = producoes[i].prod;
-					if (str.indexOf(estadosComVazio[j]) > -1) {
-            			var novaProd = "";
-            			for (var k = 0; k < producoes[i].prod.length; k++){
-            				if (producoes[i].prod[k] !== estadosComVazio[j]){
-            					novaProd += producoes[i].prod[k];
-            				}
-            			}
-            			var novaProdObj = new Producao(producoes[i].estado, novaProd, producoes[i].isInicial);
-            			producoesAux.push(novaProdObj);
-                	}
+					if (producoes[i].prod.indexOf(estadosComVazio[j]) > -1) {
+	        			var novaProd = "";
+	        			for (var k = 0; k < producoes[i].prod.length; k++){
+	        				if (producoes[i].prod[k] !== estadosComVazio[j]){
+	        					novaProd += producoes[i].prod[k];
+	        				}
+	        			}
+	        			var novaProdObj = new Producao(producoes[i].estado, novaProd, producoes[i].isInicial);
+	        			producoesAux.push(novaProdObj);
+	            	}
 				}
 			}
-			// Coloca as novas produções criada no array principal.			
+
+			// Coloca as novas produções criada no array auxiliar, passando para o array principal.			
 			if (producoesAux.length > 0){
-				// Transfere para o array principal
 				for (var i = 0; i < producoesAux.length; i++){
 					producoes.push(producoesAux[i]);
 				}
 				// Limpa o array auxiliar
 				producoesAux.splice(0, producoesAux.length - 1);
 			}
-			// Mostra no console como ficou as produções
+
+			// Mostra no console as produções após eliminar vazios
+			console.log("Procuções após eliminar os vazios: ");
+			imprime(producoes);
+		}
+
+		function imprime(producoes){
 			for (var i = 0; i < producoes.length; i++){
 				console.log(producoes[i].estado + " " + producoes[i].prod + " " + producoes[i].isInicial);
 			}
 		}
 	</script>
 <body>
-	<input type="submit" name="asçdjaslçjdasljda" onclick="verificarEstadosVazios();">
+	<input type="submit" name="asçdjaslçjdasljda" onclick="teste();">
 </body>
 </html>
