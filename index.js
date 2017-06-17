@@ -10,6 +10,12 @@ var audio = new Audio('audio/audio.mp3');
 var audio2 = new Audio('audio/audio2.mp3');
 
 
+var Producao = function (estado, prod, isInicial) {
+  this.estado = estado;
+  this.prod = prod;
+  this.isInicial = isInicial;
+}
+
 
 $(document).ready(function () {
   $('select').material_select();
@@ -164,15 +170,20 @@ function lancarModal(modal) {
 $('#submit').on('click', function () {
   tempCounter = 0;
   producao = []; //seta array vazio
+  music = true;
   $('.ldir').each(function (i, val) {
     var select = $('select', $('#select' + tempCounter++)).val();
     if (val.value == "") {
+      console.log("0");
       lancarModal(3);
+      music = false;
       return;
     }
 
     if (select == null) { //um ou mais select ficaram sem ser(em) selecionado(s)
+      console.log("1");
       lancarModal(3);
+      music = false;
       return;
     }
 
@@ -185,23 +196,28 @@ $('#submit').on('click', function () {
           notFound = false;
         }
       }
+      for(k = 0; k < nterm.length; k++){
+        if (val.value[j] == nterm[k]) {
+            notFound = false;
+          }
+      }
       if (notFound) {
+        console.log("2");
         lancarModal(3);
+        music = false;
         return;
       }
     }
 
-    producao.push({
-      id: $('.select-g select').get(i).value,
-      value: val.value,
-      inicial: false
-    });
+    prod = new Producao(nterm[$('.select-g select').get(i).value], val.value, false);
 
     if ($('select')[0].value == $('.select-g select').get(i).value) {
-      producao[i].inicial = true;
+      prod.isInicial = true;
     }
+    producao.push(prod);
+
   });
-  if (producao.length != 0) {
+  if (producao.length != 0 && music) {
     setTabActive();
     audio2.play();
   }
@@ -220,11 +236,32 @@ function setTabActive() {
     tab = '#' + tabs[i];
     tabB = '#' + tabsBody[i];
     $(tab).removeClass("disabled");
-    $(tabB).html(tabsBody[i]);
-
-
   }
   $('.tabs .indicator').css('background-color', '#f6b2b5');
+  for (var i = 0; i < tabsBody.length; i++) {
+    tab = '#' + tabsBody[i];
+    switch (i) {
+      case 0:
+
+
+        $(tab).html("");
+        break;
+      case 1:
+
+
+
+        $(tab).html("");
+        break;
+      case 2:
+
+
+
+        $(tab).html("");
+        break;
+      default:
+        break;
+    }
+  }
   tabActive = true;
 }
 /*
