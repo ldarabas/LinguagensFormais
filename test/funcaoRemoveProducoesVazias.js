@@ -4,7 +4,7 @@ var Producao = function(estado, prod, isInicial){
 	this.isInicial = isInicial;
 }
 
-function teste(){
+function testeVazio(){
 	//var prod0 = new Producao('J', 'aABcD', true);
 	//var prod1 = new Producao('J', 'aBcA', true);
 	//var prod2 = new Producao('J', 'bCc', true);

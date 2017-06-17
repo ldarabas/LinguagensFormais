@@ -4,7 +4,7 @@ var Producao = function(estado, prod, isInicial){
 	this.isInicial = isInicial;
 }
 
-function teste(){
+function testeInuteis(){
 	var prod0 = new Producao('S', 'aA', true);
 	var prod1 = new Producao('A', 'a', false);			
 	var prod2 = new Producao('E', 'aED', false);
