@@ -34,22 +34,22 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 		}
 	}
 
-	// Armazena o numero de produções do Simbolo Inicial
-	var producoesIniciais = 0;
-    for(var i = 0; i < producoes.length;i++){
-    	if(producoes[i].estado === estadoInicial){
-        	producoesIniciais++;
-        }
-    }
-
 	var geramTerminais = [];
 	// Armazenar todos os Estados que geram terminais diretamente
 	for(var i = 0; i < producoes.length; i++){
-		for (var j = 0; j < terminais.length; j++){
-			if(producoes[i].prod === terminais[j]){
-    			geramTerminais.push(producoes[i].estado);
-    			break;
-    		}
+		var gera = true;
+
+		externo: for (var j = 0; j < producoes[i].prod.length; j++){			
+			for (var k = 0; k < nTerminais.length; k++){
+				if (producoes[i].prod[j] === nTerminais[k]){
+					gera = false;
+					break externo;
+				}
+			}
+		}
+
+		if (gera){
+			geramTerminais.push(producoes[i].estado);
 		}
 	}
 
@@ -106,19 +106,27 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 	}
 
 
-//			var estadosfinal = [prod0];
-//			//Usar os simbolos restantes e ver quais deles são gerados a partir do simbolo inicial
-//            for(var i = 0; i < ProduçõesIniciais; i++){
-//				for(j= 0; j < geramTerminais.length;j++){
-//					if (producoes[i].prod.indexOf(geramTerminais[j]) >= 0){
-//						if(producoes[i].estado !=== geramTerminais[j-1]{
-//							estadosfinal[j] = producoes[i].estado;
-//						}
-				//
-//					}
-//				} 
+//	// Armazena o numero de produções do Simbolo Inicial
+//	var producoesIniciais = 0;
+//    for(var i = 0; i < producoes.length;i++){
+//    	if(producoes[i].estado === estadoInicial){
+//        	producoesIniciais++;
+//        }
+//    }
+//
+//	var estadosfinais = estadoInicial;
+//	//Usar os simbolos restantes e ver quais deles são gerados a partir do simbolo inicial
+//    for(var i = 0; i < ProduçõesIniciais; i++){
+//		for(j= 0; j < geramTerminais.length;j++){
+//			if (producoes[i].prod.indexOf(geramTerminais[j]) >= 0){
+//				if(producoes[i].estado !=== geramTerminais[j-1]{
+//					estadosfinal[j] = producoes[i].estado;
+//				}
+		//
 //			}
-	
+//		} 
+//	}
+
 	// Mostra no console as produções depois de eliminar inúteis
 	console.log('Procuções depois de eliminar os inúteis: ');
 	imprime(producoes);
