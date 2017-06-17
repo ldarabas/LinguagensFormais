@@ -1,13 +1,17 @@
-var count = 1;
-var term = [];
-var nterm = [];
-var producao = [];
-var errTerm;
-var errNTerm;
-var inicial;
-var tabActive;
-var audio = new Audio('audio/audio.mp3');
-var audio2 = new Audio('audio/audio2.mp3');
+var count = 1,
+  term = [],
+  nterm = [],
+  producao = [],
+  errTerm,
+  nTermError = false,
+  errNTerm,
+  inicial,
+  tabActive,
+  producaoSemVazio = null,
+  producaoUnitaria = null,
+  nTermKeyUpError = false,
+  audio = new Audio('audio/audio.mp3'),
+  audio2 = new Audio('audio/audio2.mp3');
 
 
 var Producao = function (estado, prod, isInicial) {
@@ -45,6 +49,24 @@ $(document).ready(function () {
 
 });
 
+$('#nterm').on('keyup', function (e) {
+  $(this).val($(this).val().toUpperCase());
+  if ((e.getKeyCode || e.which) != 188 && !new RegExp(/^([A-Z],)+[A-Z]$/g).test($(this).val()) && $(this).val().length > 1) {
+    nTermKeyUpError = true;
+    $(this).addClass('wrong');
+  } else {
+    if (nTermKeyUpError && (e.getKeyCode || e.which) != 188 && !nTermError) {
+      $(this).removeClass('wrong');
+    } else {
+      nTermError = false;
+    }
+  }
+});
+
+$('#term').on('keyup', function () {
+  $(this).val($(this).val().toLowerCase());
+});
+
 $('#add').on('click', function () {
   novo = $('.content-select').append('<div class="row"><div class="input-field col s2 offset-s4" id="select' + count + '"><label>Produções não terminais</label></div><div class="col s1 center"><i class="material-icons medium" style="margin-top:10px">trending_flat</i></div><div class="input-field col s2"><input class="ldir" type="text" class="validate"><label for="ldir">Lado direito</label></div></div>')
   $('#copy-select select').clone().prependTo('#select' + count).attr('id', 'select' + count);
@@ -65,25 +87,25 @@ $('#nterm').on('focusout', function () {
   errNTerm = false;
   var ntermTemp = nterm;
   nterm = $(this).val().split(',');
-  var error = false;
+  nTermError = false;
   var counts = {};
   nterm.forEach(function (x) {
     counts[x] = (counts[x] || 0) + 1;
     if (counts[x] > 1) {
+      nTermError = true;
       lancarModal(1);
       return;
     }
   });
 
   $.each(nterm, function (i, val) {
-
-
     if (!verificaMaisculo(val)) {
       lancarModal(1);
-      error = true;
+      nTermError = true;
     }
   });
-  if (error === false) {
+
+  if (nTermError === false) {
     callOkMessage();
     $('select').each(function () { $(this).empty().html('<option value="-1" disabled selected>Selecione</option>') });
     $.each(nterm, function (i, val) {
@@ -196,10 +218,10 @@ $('#submit').on('click', function () {
           notFound = false;
         }
       }
-      for(k = 0; k < nterm.length; k++){
+      for (k = 0; k < nterm.length; k++) {
         if (val.value[j] == nterm[k]) {
-            notFound = false;
-          }
+          notFound = false;
+        }
       }
       if (notFound) {
         console.log("2");
@@ -230,33 +252,49 @@ $('#tab').on('click', function () {
 });
 
 function setTabActive() {
-  tabs = ["tab-1", "tab-2", "tab-3"];
-  tabsBody = ["tab-vazio", "tab-unitaria", "tab-inuteis"];
+  tabs = ["tab-1", "tab-2", "tab-3", "tab-4"];
+  tabsBody = ["#tab-vazio", "#tab-unitaria", "#tab-inuteis"];
   for (var i = 0; i < tabs.length; i++) {
     tab = '#' + tabs[i];
-    tabB = '#' + tabsBody[i];
     $(tab).removeClass("disabled");
   }
   $('.tabs .indicator').css('background-color', '#f6b2b5');
+  producaoSemVazio = JSON.parse(JSON.stringify(producao)); //copy o array sem passar referencia
+  producaoUnitaria = JSON.parse(JSON.stringify(producaoSemVazio)); //copy o array sem passar referencia
   for (var i = 0; i < tabsBody.length; i++) {
-    tab = '#' + tabsBody[i];
     switch (i) {
       case 0:
-
-
-        $(tab).html("");
+        removeProducoesVazias(producaoSemVazio);
+        console.log(producaoSemVazio);
+        producaoSemVazio.sort(function (x, y) {
+          return (x.isInicial === y.isInicial) ? 0 : x.isInicial ? -1 : 1;
+        });
+        $(tabsBody[i]).html('<table class="col s4 offset-s5 center"><tbody></tbody></table>');
+        for (var j = 0; j < producaoSemVazio.length; j++) {
+          console.log("Passou no switch com " + i + " e " + j);
+          $(tabsBody[i]).children().append(((producaoSemVazio[j].isInicial) ? '<tr><td><i class="material-icons">input</i></td>' : '<tr><td style="width:4rem"></td>') + '</td><td>' + producaoSemVazio[j].estado + '</td><td><i class="material-icons">trending_flat</i></td><td>' + producaoSemVazio[j].prod + '</td></tr>');
+        }
         break;
       case 1:
+        removeProducoesUnitarias(producaoUnitaria);
+        console.log(producaoUnitaria);
+        producaoUnitaria.sort(function (x, y) {
+          return (x.isInicial === y.isInicial) ? 0 : x.isInicial ? -1 : 1;
+        });
+        $(tabsBody[i]).html('<table class="col s4 offset-s5 center"><tbody></tbody></table>');
+        for (var j = 0; j < producaoSemVazio.length; j++) {
+          console.log("Passou no switch com " + i + " e " + j);
+          $(tabsBody[i]).children().append(((producaoSemVazio[j].isInicial) ? '<tr><td><i class="material-icons">input</i></td>' : '<tr><td style="width:4rem"></td>') + '</td><td>' + producaoSemVazio[j].estado + '</td><td><i class="material-icons">trending_flat</i></td><td>' + producaoSemVazio[j].prod + '</td></tr>');
+        }
 
-
-
-        $(tab).html("");
         break;
       case 2:
 
 
 
-        $(tab).html("");
+        break;
+      case 3:
+
         break;
       default:
         break;
@@ -264,6 +302,7 @@ function setTabActive() {
   }
   tabActive = true;
 }
+
 /*
 function teste() {
   var i = 0;

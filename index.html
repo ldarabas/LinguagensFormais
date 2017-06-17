@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
   <div class="row">
     <div class="input-field col s4 offset-s4">
       <input id="nterm" type="text" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip='Separe os valores com uma vírgula. =)'>
@@ -66,6 +65,7 @@
         <li class="tab col s3 disabled" id="tab-1"><a class="active" href="#tab-vazio">REMOVER VAZIO</a></li>
         <li class="tab col s3 disabled" id="tab-2"><a href="#tab-unitaria">REMOVER UNITÁRIA</a></li>
         <li class="tab col s3 disabled" id="tab-3"><a href="#tab-inuteis">REMOVER INÚTEIS</a></li>
+        <li class="tab col s3 disabled" id="tab-4"><a href="#tab-combinado">COMBINADO</a></li>
       </ul>
       <div class="center">
         <div id="tab-vazio" class="col s12 flow-text">
@@ -73,6 +73,8 @@
         <div id="tab-unitaria" class="col s12 flow-text">
         </div>
         <div id="tab-inuteis" class="col s12 flow-text">
+        </div>
+        <div id="tab-combinado" class="col s12 flow-text">
         </div>
       </div>
     </div>
@@ -141,6 +143,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
   <script type="text/javascript" src="removeProducoesVazias.js"></script>
+  <script type="text/javascript" src="removeProducoesUnitarias.js"></script>
 </body>
 
 </html>
