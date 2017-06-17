@@ -66,7 +66,7 @@
 	        							for (var l = 0; l < _producoes[i]._prod.length; l++){
 	        								if (k === l){
 	        									continue;
-    	    								}
+	        								}
     	    								_novaProd += _producoes[i]._prod[l];
         								}
 		        						_producoesAux.push(new Producao(_producoes[i]._estado, _novaProd, _producoes[i]._isInicial));
@@ -81,7 +81,7 @@
         				for (var k = 0; k < _producoes[i]._prod.length; k++){
 	        				if (_producoes[i]._prod[k] !== _estadosComVazio[j]){
 	        					_novaProd += _producoes[i]._prod[k];
-    	    				}
+	        				}
         				}
         				_producoesAux.push(new Producao(_producoes[i]._estado, _novaProd, _producoes[i]._isInicial));
 	            	}
@@ -112,18 +112,13 @@
 
 		}
 
-		function contaOcorrencias(_prod, _estado){
-			var _tamanhoOriginal; 
-			var _tamanhoAlterado;
-			_tamanhoOriginal = _prod.length;
-			_prod = _prod.split(_estado).join('');
-			_tamanhoAlterado  = _prod.length;
-			return (_tamanhoOriginal - _tamanhoAlterado);
+		function contaOcorrencias(_prod, _estado){			
+			return (_prod.length - (_prod.split(_estado).join('').length));
 		}
 
 		function imprime(_producoes){
 			for (var i = 0; i < _producoes.length; i++){
-				console.log(_producoes[i]._estado + ' ' + _producoes[i]._prod + ' ' + _producoes[i]._isInicial);
+				console.log(_producoes[i]._estado + ' ' + _producoes[i]._prod + ' ' + _producoes[i]._isInicial);			
 			}
 		}
 	</script>
