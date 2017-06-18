@@ -150,15 +150,9 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 }
 
 function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis){
-	console.log("irá verificar acessíveis");
-	for(var i = 0; i < prodEstado.length; i++){
-		console.log(prodEstado[i]);
-	}
-
 	for(var i = 0; i < prodEstado.length; i++){
 		for(var j = 0; j < prodEstado[i].prod.length; j++){
 			for(var k = 0; k < nTerminais.length; k++){
-				console.log(prodEstado[i].prod[j] + " com " + nTerminais[k]);
 				if (prodEstado[i].prod[j] === nTerminais[k]){
 					if (prodEstado[i].estado === nTerminais[k]){
 						break;
@@ -166,7 +160,6 @@ function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis
 						// verifica se o estado já é acessível
 						for (var l = 0; l < estadosAcessiveis.length; l++){
 							if(nTerminais[k] === estadosAcessiveis[l]){
-								console.log("parou");
 								return;
 							}
 						}

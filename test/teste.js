@@ -4,15 +4,16 @@ var Producao = function(estado, prod, isInicial){
 	this.isInicial = isInicial;
 }
 
-var prod0 = new Producao('S', 'aAa', true);
-var prod1 = new Producao('S', 'bBb', false);			
-var prod2 = new Producao('A', 'a', false);
-var prod3 = new Producao('A', 'S', false);
-var prod4 = new Producao('C', 'c', false);
+var prod0 = new Producao('S', 'aSb', true);
+var prod1 = new Producao('S', 'A', true);			
+var prod2 = new Producao('A', 'aA', false);
+var prod3 = new Producao('A', 'B', false);
+var prod4 = new Producao('B', 'bBc', false);
+var prod5 = new Producao('B', 'bc', false);
 
-var terminais = ['a', 'c'];
-var nTerminais = ['S', 'A', 'C'];
-var producoes = [prod0, prod1, prod2, prod3, prod4];
+var terminais = ['a', 'b', 'c'];
+var nTerminais = ['S', 'A', 'B'];
+var producoes = [prod0, prod1, prod2, prod3, prod4, prod5];
 
 
 function testeVazio(){
