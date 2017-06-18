@@ -4,32 +4,6 @@ var Producao = function(estado, prod, isInicial){
 	this.isInicial = isInicial;
 }
 
-function testeVazio(){
-	//var prod0 = new Producao('J', 'aABcD', true);
-	//var prod1 = new Producao('J', 'aBcA', true);
-	//var prod2 = new Producao('J', 'bCc', true);
-	//var prod3 = new Producao('A', 'bAbD', false);
-	//var prod4 = new Producao('A', 'bb', false);
-	//var prod5 = new Producao('A', '&', false);
-	//var prod6 = new Producao('B', 'bDaA', false);
-	//var prod7 = new Producao('B', 'bBBa', false);
-	//var prod8 = new Producao('B', 'bDba', false);
-	//var prod9 = new Producao('B', 'ba', false);
-	//var prod10 = new Producao('B', 'b', false);
-	//var prod11 = new Producao('D', 'bB', false);
-	//var prod12 = new Producao('D', '&', false);
-	
-	//var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11, prod12];
-	
-	var prod0 = new Producao('B', 'aBCcC', true);
-	var prod1 = new Producao('B', 'ac', true);
-	var prod2 = new Producao('C', 'ab', false);
-	var prod3 = new Producao('C', '&', false);
-
-	var producoes = [prod0, prod1, prod2, prod3];
-	removeProducoesVazias(producoes);
-}
-
 function removeProducoesVazias(producoes){
 	// Mostra no console as produções antes de eliminar vazios
 	console.log('Procuções antes de eliminar os vazios: ');

@@ -5,15 +5,6 @@ var Producao = function(estado, prod, isInicial){
 }
 
 function removeProducoesUnitarias(nTerminais, producoes){
-	var prod0 = new Producao("S", "bS", true);
-	var prod1 = new Producao("S", "A", true);
-	var prod2 = new Producao("A", "aA", false);
-	var prod3 = new Producao("A", "a", false);
-	
-	nTerminais = ["S", "A"];
-	producoes = [prod0, prod1, prod2, prod3];
-	
-
 	// Mostra no console as produções antes de remover unitárias
 	console.log('Procuções antes de remover os unitárias: ');
 	imprime(producoes);
