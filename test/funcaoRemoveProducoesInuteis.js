@@ -76,24 +76,20 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 	}
 
 	// Elimina os estados que não geram terminais direta ou indiretamente
-	for(var i = 0; i < producoes.length; i++){				
+	for(var i = 0; i < nTerminais.length; i++){				
 		var remove = true;
 		for (var j = 0; j < geramTerminais.length; j++){
-			if (producoes[i].estado == geramTerminais[j]){
+			if (nTerminais[i] == geramTerminais[j]){
 				remove = false;
 				break;
 			}
 		}
 
 		if(remove){
-			var estadoEliminado = producoes[i].estado;
-			// Remove a produção
-			producoes.splice(i, 1);	
-
-			// Elimina as produções que contém os terminais eliminados
+			// Elimina as produções que contém os terminal a ser eliminado
 			for(var j = 0; j < producoes.length; j++){
-				for(var k = 0; k < producoes[i].prod.length; k++){
-					if(producoes[j].prod[k] === estadoEliminado){
+				for(var k = 0; k < producoes[j].prod.length; k++){
+					if(nTerminais[i] === producoes[j].prod[k]){
 						producoes.splice(j, 1);
 						j--;
 					}
