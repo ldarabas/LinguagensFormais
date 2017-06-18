@@ -5,16 +5,19 @@ var Producao = function(estado, prod, isInicial){
 }
 
 function testeInuteis(){
-	var prod0 = new Producao('S', 'aA', true);
+	var prod0 = new Producao('S', 'aAB', true);
 	var prod1 = new Producao('A', 'a', false);			
 	var prod2 = new Producao('E', 'aED', false);
 	var prod3 = new Producao('D', 'dda', false);
-	var prod4 = new Producao('D', 'aA', false);
+	var prod4 = new Producao('D', 'aDA', false);
 	var prod5 = new Producao('H', 'aH', false);
+	var prod6 = new Producao('I', 'aAaA', false);
+	var prod7 = new Producao('B', 'bD', false);
+	var prod8 = new Producao('B', 'b', false);
 	
 	var terminais = ['a', 'b', 'd'];
-	var nTerminais = ['S', 'A', 'E', 'D', 'H'];
-	var producoes = [prod0, prod1, prod2, prod3, prod4, prod5];
+	var nTerminais = ['S', 'A', 'B', 'E', 'D', 'H', 'I'];
+	var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8];
 	removerEstadosInuteis(terminais, nTerminais, producoes);
 }
 
@@ -101,35 +104,78 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 		}
 
 		if(remove){
+			var estadoEliminado = producoes[i].estado;
+			// Remove a produção
+			producoes.splice(i, 1);	
+
+			// Elimina as produções que contém os terminais eliminados
+			for(var i = 0; i < producoes.length; i++){
+				for(var j = 0; j < producoes[i].prod.length; j++){
+					if(producoes[i].prod[j] === estadoEliminado){
+						producoes.splice(i, 1);
+					}
+				}
+			}
+
+		}
+	}
+
+	var estadosAcessiveis = [];
+	// Estados acessíveis a partir do estado inicial
+	verificaAcessiveis(criaArrayComProducoesDoEstadoX(estadoInicial, producoes), producoes, nTerminais, estadosAcessiveis);
+
+	// Remove repetiçõs no array de estados acessíveis
+	for (var i = 0; i < estadosAcessiveis.length; i++){
+		for (var j = i + 1; j < estadosAcessiveis.length; j++){
+			if (estadosAcessiveis[i] === estadosAcessiveis[j]){
+				estadosAcessiveis.splice(j, 1);
+			}
+		}
+	}
+
+	// Remove os estados que não são acessíveis a partir do simbolo inicial
+	for(var i = 0; i < producoes.length; i++){				
+		var remove = true;
+		for (var j = 0; j < estadosAcessiveis.length; j++){
+			if (producoes[i].estado == estadosAcessiveis[j]){
+				remove = false;
+				break;
+			}
+		}
+
+		if(remove){
 			producoes.splice(i, 1);	
 		}
 	}
 
 
-//	// Armazena o numero de produções do Simbolo Inicial
-//	var producoesIniciais = 0;
-//    for(var i = 0; i < producoes.length;i++){
-//    	if(producoes[i].estado === estadoInicial){
-//        	producoesIniciais++;
-//        }
-//    }
-//
-//	var estadosfinais = estadoInicial;
-//	//Usar os simbolos restantes e ver quais deles são gerados a partir do simbolo inicial
-//    for(var i = 0; i < ProduçõesIniciais; i++){
-//		for(j= 0; j < geramTerminais.length;j++){
-//			if (producoes[i].prod.indexOf(geramTerminais[j]) >= 0){
-//				if(producoes[i].estado !=== geramTerminais[j-1]{
-//					estadosfinal[j] = producoes[i].estado;
-//				}
-		//
-//			}
-//		} 
-//	}
+	console.log("Estados acessíveis a partir do inicial: ");
+	for (var i = 0; i < estadosAcessiveis.length; i++){
+		console.log(estadosAcessiveis[i]);
+	}
+
 
 	// Mostra no console as produções depois de eliminar inúteis
 	console.log('Procuções depois de eliminar os inúteis: ');
 	imprime(producoes);
+}
+
+function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis){
+	for(var i = 0; i < prodEstado.length; i++){
+		for(var j = 0; j < prodEstado[i].prod.length; j++){
+			for(var k = 0; k < nTerminais.length; k++){
+				if (prodEstado[i].prod[j] === nTerminais[k]){
+					if (prodEstado[i].estado === nTerminais[k]){
+						break;
+					} else {
+						estadosAcessiveis.push(nTerminais[k]);
+						verificaAcessiveis(criaArrayComProducoesDoEstadoX(nTerminais[k], producoes), producoes, nTerminais, estadosAcessiveis);
+						break;
+					}
+				}
+			}
+		}
+	}
 }
 
 function verificaGeraIndiretamente(prodEstado, producoes, nTerminais, geramTerminais){
