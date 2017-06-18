@@ -8,9 +8,8 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 	var estadoInicial;
 
 	// Mostra no console as produções antes de eliminar inúteis
-	console.log('Procuções antes de eliminar os inúteis: ');
+	console.log('Produções antes de eliminar os inúteis: ');
 	imprime(producoes);
-
 
 	// Procura pelo estado inicial
 	for (var i = 0; i < producoes.length; i++){
@@ -71,7 +70,7 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 		}
 	}
 
-	console.log('termeinais diretamente + indiretamente');
+	console.log('terminais diretamente + indiretamente');
 	for (var i = 0; i < geramTerminais.length; i++){
 		console.log(geramTerminais[i]);			
 	}
@@ -92,10 +91,11 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 			producoes.splice(i, 1);	
 
 			// Elimina as produções que contém os terminais eliminados
-			for(var i = 0; i < producoes.length; i++){
-				for(var j = 0; j < producoes[i].prod.length; j++){
-					if(producoes[i].prod[j] === estadoEliminado){
-						producoes.splice(i, 1);
+			for(var j = 0; j < producoes.length; j++){
+				for(var k = 0; k < producoes[i].prod.length; k++){
+					if(producoes[j].prod[k] === estadoEliminado){
+						producoes.splice(j, 1);
+						j--;
 					}
 				}
 			}
@@ -103,19 +103,28 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 		}
 	}
 
+	// Mostra resultando após 1ª parte
+	console.log('Produções após 1ª parte: ');
+	imprime(producoes);
+
 	var estadosAcessiveis = [];
+	estadosAcessiveis[0] = estadoInicial;
 	// Estados acessíveis a partir do estado inicial
 	verificaAcessiveis(criaArrayComProducoesDoEstadoX(estadoInicial, producoes), producoes, nTerminais, estadosAcessiveis);
+
+	console.log("Estados acessíveis a partir do inicial: ");
+	for (var i = 0; i < estadosAcessiveis.length; i++){
+		console.log(estadosAcessiveis[i]);
+	}
 
 	// Remove repetiçõs no array de estados acessíveis
 	for (var i = 0; i < estadosAcessiveis.length; i++){
 		for (var j = i + 1; j < estadosAcessiveis.length; j++){
 			if (estadosAcessiveis[i] === estadosAcessiveis[j]){
-				estadosAcessiveis.splice(j, 1);
+				estadosAcessiveis.splice(j,	 1);
 			}
 		}
 	}
-
 	// Remove os estados que não são acessíveis a partir do simbolo inicial
 	for(var i = 0; i < producoes.length; i++){				
 		var remove = true;
@@ -127,30 +136,44 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 		}
 
 		if(remove){
-			producoes.splice(i, 1);	
+			var estadoRemover = producoes[i].estado;
+			for (var k = 0; k < producoes.length; k++){
+				if (estadoRemover === producoes[k].estado){
+					producoes.splice(k, 1);
+					k--;
+				}
+			}
 		}
 	}
 
 
-	console.log("Estados acessíveis a partir do inicial: ");
-	for (var i = 0; i < estadosAcessiveis.length; i++){
-		console.log(estadosAcessiveis[i]);
-	}
 
-
-	// Mostra no console as produções depois de eliminar inúteis
-	console.log('Procuções depois de eliminar os inúteis: ');
+	// Mostra resultando após 2ª parte
+	console.log('Produções após 2ª parte: ');
 	imprime(producoes);
 }
 
 function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis){
+	console.log("irá verificar acessíveis");
+	for(var i = 0; i < prodEstado.length; i++){
+		console.log(prodEstado[i]);
+	}
+
 	for(var i = 0; i < prodEstado.length; i++){
 		for(var j = 0; j < prodEstado[i].prod.length; j++){
 			for(var k = 0; k < nTerminais.length; k++){
+				console.log(prodEstado[i].prod[j] + " com " + nTerminais[k]);
 				if (prodEstado[i].prod[j] === nTerminais[k]){
 					if (prodEstado[i].estado === nTerminais[k]){
 						break;
 					} else {
+						// verifica se o estado já é acessível
+						for (var l = 0; l < estadosAcessiveis.length; l++){
+							if(nTerminais[k] === estadosAcessiveis[l]){
+								console.log("parou");
+								return;
+							}
+						}
 						estadosAcessiveis.push(nTerminais[k]);
 						verificaAcessiveis(criaArrayComProducoesDoEstadoX(nTerminais[k], producoes), producoes, nTerminais, estadosAcessiveis);
 						break;
