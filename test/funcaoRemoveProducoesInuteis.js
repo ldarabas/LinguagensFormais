@@ -142,8 +142,6 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 		}
 	}
 
-
-
 	// Mostra resultando após 2ª parte
 	console.log('Produções após 2ª parte: ');
 	imprime(producoes);
