@@ -6,7 +6,7 @@ var Producao = function(estado, prod, isInicial){
 
 function removeProducoesVazias(producoes){
 	// Mostra no console as produções antes de eliminar vazios
-	console.log('Procuções antes de eliminar os vazios: ');
+	console.log('Produções antes de eliminar os vazios: ');
 	imprime(producoes);
 
 	var estadosComVazio = [];
@@ -30,15 +30,15 @@ function removeProducoesVazias(producoes){
     			if (contaOcorrencias(producoes[i].prod, estadosComVazio[j]) > 1){	        				
     				for (var k = 0; k < producoes[i].prod.length; k++){
     					if (producoes[i].prod[k] === estadosComVazio[j]){
-    							// Quando entra nesse if achou a posição do estado, então vai criar uma produção sem o caractere dessa posição
-    							for (var l = 0; l < producoes[i].prod.length; l++){
-    								if (k === l){
-    									continue;
-    								}
-    								novaProd += producoes[i].prod[l];
+							// Quando entra nesse if achou a posição do estado, então vai criar uma produção sem o caractere dessa posição
+							for (var l = 0; l < producoes[i].prod.length; l++){
+								if (k === l){
+									continue;
 								}
-        						producoesAux.push(new Producao(producoes[i].estado, novaProd, producoes[i].isInicial));
-        						novaProd = '';
+								novaProd += producoes[i].prod[l];
+							}
+    						producoesAux.push(new Producao(producoes[i].estado, novaProd, producoes[i].isInicial));
+    						novaProd = '';
 	    				}
     				}
     			}
@@ -75,7 +75,7 @@ function removeProducoesVazias(producoes){
 	}
 
 	// Mostra no console as produções após eliminar vazios
-	console.log('Procuções após eliminar os vazios: ');
+	console.log('Produções após eliminar os vazios: ');
 	imprime(producoes);
 
 }

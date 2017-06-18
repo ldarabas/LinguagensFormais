@@ -6,20 +6,21 @@ var Producao = function(estado, prod, isInicial){
 
 function removeProducoesUnitarias(nTerminais, producoes){
 	// Mostra no console as produções antes de remover unitárias
-	console.log('Procuções antes de remover os unitárias: ');
+	console.log('Produções antes de remover os unitárias: ');
 	imprime(producoes);
 
 	// Remove produções unitárias
 	removeUnitaria(producoes);	
 	
 	// Mostra no console as produções após remover unitárias
-	console.log('Procuções após remover os unitárias: ');
+	console.log('Produções após remover os unitárias: ');
 	imprime(producoes);
 }
 
 function removeUnitaria(producoes){
 	var producoesAux = [];
 	var existeUnitaria = false;
+	// Gera novas produções e elimina a unitária
 	for(var i = 0; i < producoes.length; i++){
 		for (var j = 0; j < nTerminais.length; j++){
 			if(producoes[i].prod === nTerminais[j]){
@@ -67,7 +68,6 @@ function removeUnitaria(producoes){
 	}
 	
 	if (existeUnitaria){
-		console.log("repete");
 		removeUnitaria(producoes, producoesAux);
 	}
 }
