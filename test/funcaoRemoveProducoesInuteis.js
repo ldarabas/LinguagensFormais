@@ -150,7 +150,7 @@ function removerEstadosInuteis(terminais, nTerminais, producoes){
 function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis){
 	for(var i = 0; i < prodEstado.length; i++){
 		for(var j = 0; j < prodEstado[i].prod.length; j++){
-			for(var k = 0; k < nTerminais.length; k++){
+			extern: for(var k = 0; k < nTerminais.length; k++){
 				if (prodEstado[i].prod[j] === nTerminais[k]){
 					if (prodEstado[i].estado === nTerminais[k]){
 						break;
@@ -158,7 +158,7 @@ function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis
 						// verifica se o estado já é acessível
 						for (var l = 0; l < estadosAcessiveis.length; l++){
 							if(nTerminais[k] === estadosAcessiveis[l]){
-								return;
+								break extern;
 							}
 						}
 						estadosAcessiveis.push(nTerminais[k]);
