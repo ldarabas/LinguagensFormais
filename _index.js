@@ -265,7 +265,7 @@ function setTabActive() {
   producaoSemVazio = JSON.parse(JSON.stringify(producao)); //copy o array sem passar referencia
   producaoUnitaria = JSON.parse(JSON.stringify(producaoSemVazio)); //copy o array sem passar referencia
   producaoSemInuteis = JSON.parse(JSON.stringify(producao)); //copy o array sem passar referencia
-  producaoCombinada = JSON.parse(JSON.stringify(producaoSemVazio)); //copy o array sem passar referencia
+  producaoCombinada = JSON.parse(JSON.stringify(producao)); //copy o array sem passar referencia
   for (var i = 0; i < tabsBody.length; i++) {
     switch (i) {
       case 0:
@@ -307,16 +307,30 @@ function setTabActive() {
 
         break;
       case 3:
-        removerEstadosInuteis(producaoCombinada);
+        console.log("COMBINADA");
+        removeProducoesVazias(producaoCombinada);
         console.log(producaoCombinada);
-        producaoCombinada.sort(function (x, y) {
+        producaoSemVazio.sort(function (x, y) {
           return (x.isInicial === y.isInicial) ? 0 : x.isInicial ? -1 : 1;
         });
+        removeProducoesUnitarias(producaoCombinada);
+        console.log(producaoCombinada);
+        producaoSemVazio.sort(function (x, y) {
+          return (x.isInicial === y.isInicial) ? 0 : x.isInicial ? -1 : 1;
+        });
+        removerEstadosInuteis(producaoCombinada);
+        console.log(producaoCombinada);
+        producaoSemVazio.sort(function (x, y) {
+          return (x.isInicial === y.isInicial) ? 0 : x.isInicial ? -1 : 1;
+        });        
+        
         $(tabsBody[i]).html('<table class="col s4 offset-s5 center"><tbody></tbody></table>');
-        for (var j = 0; j < producaoCombinada.length; j++) {
+        for (var j = 0; j < producaoSemVazio.length; j++) {
           console.log("Passou no switch com " + i + " e " + j);
-          $(tabsBody[i]).children().append(((producaoCombinada[j].isInicial) ? '<tr><td><i class="material-icons">input</i></td>' : '<tr><td style="width:4rem"></td>') + '</td><td>' + producaoCombinada[j].estado + '</td><td><i class="material-icons">trending_flat</i></td><td>' + producaoCombinada[j].prod + '</td></tr>');
+          $(tabsBody[i]).children().append(((producaoSemVazio[j].isInicial) ? '<tr><td><i class="material-icons">input</i></td>' : '<tr><td style="width:4rem"></td>') + '</td><td>' + producaoSemVazio[j].estado + '</td><td><i class="material-icons">trending_flat</i></td><td>' + producaoSemVazio[j].prod + '</td></tr>');
         }
+
+
 
         break;
       default:
