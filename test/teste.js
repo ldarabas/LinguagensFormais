@@ -127,7 +127,7 @@ var Producao = function(estado, prod, isInicial){
 //var prod11 = new Producao('G', 'baG', false);
 //var prod12 = new Producao('G', 'aGb', false);
 //
-//var terminais = ['a', 'b', '&'];
+//var terminais = ['a', 'b', 'c', '&'];
 //var nTerminais = ['S', 'A', 'B', 'E', 'F', 'G'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11, prod12];
 
