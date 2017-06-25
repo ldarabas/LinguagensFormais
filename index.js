@@ -253,7 +253,7 @@ $('#tab').on('click', function () {
 
 function setTabActive() {
   tabs = ["tab-1", "tab-2", "tab-3", "tab-4"];
-  tabsBody = ["#tab-vazio", "#tab-unitaria", "#tab-inuteis"];
+  tabsBody = ["#tab-vazio", "#tab-unitaria", "#tab-inuteis", "#tab-combinado"];
   for (var i = 0; i < tabs.length; i++) {
     tab = '#' + tabs[i];
     $(tab).removeClass("disabled");
@@ -261,6 +261,8 @@ function setTabActive() {
   $('.tabs .indicator').css('background-color', '#f6b2b5');
   producaoSemVazio = JSON.parse(JSON.stringify(producao)); //copy o array sem passar referencia
   producaoUnitaria = JSON.parse(JSON.stringify(producaoSemVazio)); //copy o array sem passar referencia
+  producaoSemInuteis = JSON.parse(JSON.stringify(producao)); //copy o array sem passar referencia
+  producaoCombinada = JSON.parse(JSON.stringify(producaoSemVazio)); //copy o array sem passar referencia
   for (var i = 0; i < tabsBody.length; i++) {
     switch (i) {
       case 0:
@@ -289,11 +291,29 @@ function setTabActive() {
 
         break;
       case 2:
-
-
+        removerEstadosInuteis(producaoSemInuteis);
+        console.log(producaoSemInuteis);
+        producaoSemInuteis.sort(function (x, y) {
+          return (x.isInicial === y.isInicial) ? 0 : x.isInicial ? -1 : 1;
+        });
+        $(tabsBody[i]).html('<table class="col s4 offset-s5 center"><tbody></tbody></table>');
+        for (var j = 0; j < producaoSemInuteis.length; j++) {
+          console.log("Passou no switch com " + i + " e " + j);
+          $(tabsBody[i]).children().append(((producaoSemInuteis[j].isInicial) ? '<tr><td><i class="material-icons">input</i></td>' : '<tr><td style="width:4rem"></td>') + '</td><td>' + producaoSemInuteis[j].estado + '</td><td><i class="material-icons">trending_flat</i></td><td>' + producaoSemInuteis[j].prod + '</td></tr>');
+        }
 
         break;
       case 3:
+        removerEstadosInuteis(producaoCombinada);
+        console.log(producaoCombinada);
+        producaoCombinada.sort(function (x, y) {
+          return (x.isInicial === y.isInicial) ? 0 : x.isInicial ? -1 : 1;
+        });
+        $(tabsBody[i]).html('<table class="col s4 offset-s5 center"><tbody></tbody></table>');
+        for (var j = 0; j < producaoCombinada.length; j++) {
+          console.log("Passou no switch com " + i + " e " + j);
+          $(tabsBody[i]).children().append(((producaoCombinada[j].isInicial) ? '<tr><td><i class="material-icons">input</i></td>' : '<tr><td style="width:4rem"></td>') + '</td><td>' + producaoCombinada[j].estado + '</td><td><i class="material-icons">trending_flat</i></td><td>' + producaoCombinada[j].prod + '</td></tr>');
+        }
 
         break;
       default:
@@ -301,6 +321,9 @@ function setTabActive() {
     }
   }
   tabActive = true;
+  $('html, body').animate({
+        scrollTop: $(document).height()
+    }, 'slow');
 }
 
 /*
