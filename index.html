@@ -4,26 +4,26 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
   <meta charset="UTF-8">
-  <title>Cabeça de gelo</title>
+  <title>Linguagens Formais</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
 <body>
   <div class="row">
-    <div class="input-field col s4 offset-s4">
+    <div class="input-field col s5 offset-s4">
       <input id="nterm" type="text" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip='Separe os valores com uma vírgula. =)'>
       <label for="nterm">Símbolos não terminais</label>
     </div>
   </div>
   <div class="row">
-    <div class="input-field col s4 offset-s4">
+    <div class="input-field col s5 offset-s4">
       <input id="term" type="text" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip='Separe os valores com uma vírgula. Utilize "&" para representar o vazio. ;)'>
       <label for="term">Símbolos terminais</label>
     </div>
   </div>
   <div class="row">
-    <div class="input-field col s4 offset-s4">
+    <div class="input-field col s5 offset-s4">
       <select id="inicial">
           <option value="" disabled selected>Selecione</option>
         </select>
@@ -53,9 +53,15 @@
   </div>
 
   <div class="row">
-    <div class="input-field col s4 offset-s5">
+    <div class="input-field" style="margin-left: 45%">
       <a class="waves-effect waves-light btn" id="add">Adicionar</a>
       <a class="waves-effect waves-light btn" id="submit">Submeter</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field" style="margin-left: 46.5%">
+      <a class="waves-effect waves-light btn" id="exp">Exportar</a>
+      <a class="waves-effect waves-light btn" id="new">Novo</a>
     </div>
   </div>
 
@@ -63,7 +69,7 @@
     <div class="col s10 offset-s1">
       <ul id="tabs-swipe" class="tabs tabs-fixed-width">
         <li class="tab col s3 disabled" id="tab-1"><a class="active" href="#tab-vazio">REMOVER VAZIO</a></li>
-        <li class="tab col s3 disabled" id="tab-2"><a href="#tab-unitaria">REMOVER UNITÁRIA</a></li>
+        <li class="tab col s3 disabled" id="tab-2"><a href="#tab-unitaria">REMOVER UNITÁRIAS</a></li>
         <li class="tab col s3 disabled" id="tab-3"><a href="#tab-inuteis">REMOVER INÚTEIS</a></li>
         <li class="tab col s3 disabled" id="tab-4"><a href="#tab-combinado">COMBINADO</a></li>
       </ul>
@@ -137,13 +143,66 @@
   </div>
 
 
+  <!-- Modal Structure -->
+  <div id="modalexit" class="modal">
+    <div class="modal-content center">
+      <h4 class="red-text">Deseja mesmo reiniciar?</h4>
+      <br>
+      <h5>Todos os dados serão perdidos! Deseja mesmo reiniciar?</h5>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" id="exit" class="waves-effect waves-green btn-flat">Sim</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">NÃO!</a>
+    </div>
+  </div>
 
+  <!-- Modal Structure -->
+  <div id="modalexport" class="modal">
+    <div class="modal-content center">
+      <h4 class="red-text">Como deseja exportar?</h4>
+      <br>
+      <div id="export">
+      </div>
+      <a href="#!" id="json" class="waves-effect waves-light btn" download="export.json">JSON</a>
+      <a href="#!" id="text" class="waves-effect waves-light btn" download="export.txt">TEXT</a>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Sair</a>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Simplificações em Gramáticas</h5>
+          <p class="grey-text text-lighten-4">Trabalho de Linguagens Formais</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Autores</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/luandr">Luan Darabas</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/programmerGM">Luiz Alexandre da Luz</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/LuizAlexandre17">Maurício Marques</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        <a class="white-text" href="https://raw.githubusercontent.com/luandr/LinguagensFormais/master/LICENSE">© 2016 MIT license</a>
+      </div>
+    </div>
+  </footer>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
   <script type="text/javascript" src="index.js"></script>
-  <script type="text/javascript" src="removeProducoesVazias.js"></script>
-  <script type="text/javascript" src="removeProducoesUnitarias.js"></script>
+  <script type="text/javascript" src="funcaoRemoveProducoesUnitarias.js"></script>
+  <script type="text/javascript" src="funcaoRemoveProducoesVazias.js"></script>
+  <script type="text/javascript" src="funcaoRemoveProducoesInuteis.js"></script>
+
+
 </body>
 
 </html>
