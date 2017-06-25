@@ -1,3 +1,4 @@
+nTerm = nterm; //Passa referência
 var Producao = function(estado, prod, isInicial){
 	this.estado = estado;
 	this.prod = prod;
