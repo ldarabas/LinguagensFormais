@@ -18,7 +18,7 @@ var Producao = function(estado, prod, isInicial){
 //var prod10 = new Producao('W', 'bb', false);
 //var prod11 = new Producao('W', '&', false);
 //
-//var terminais = ['a', '&'];
+//var terminais = ['a', 'b', '&'];
 //var nTerminais = ['J', 'B', 'H', 'W'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
 
