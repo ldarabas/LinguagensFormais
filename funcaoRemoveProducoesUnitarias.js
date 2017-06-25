@@ -4,105 +4,56 @@ var Producao = function(estado, prod, isInicial){
 	this.isInicial = isInicial;
 }
 
-function removeProducoesUnitarias(nTerminais, producoes){
+function removeProducoesUnitarias(producoes){
 	// Mostra no console as produções antes de remover unitárias
 	console.log('Produções antes de remover os unitárias: ');
 	imprime(producoes);
-	
 
 	// Verifica se existe estados inválidos para eliminar. Ex: J -> H e H -> J
-	removeEstadosInvalidos(nTerminais, producoes);
+	removeEstadosInvalidos(producoes);
 
-	var v = ContadorSomenteNãoTerminais(nTerminais,producoes);
-	
 	// Remove produções unitárias
-	var x = 0;
-	console.log( v +'x');
-	do {
-        x++;
-		console.log(v + "Verificador");
-		removeUnitaria(nTerminais, producoes, v);
-        
-	} while(x<=v);
-	
+	removeUnitaria(producoes);	
 	
 	// Mostra no console as produções após remover unitárias
 	console.log('Produções após remover os unitárias: ');
 	imprime(producoes);
 }
 
-function Excluir(nTerminais,producoes,nTerminaisExclusão){
-	console.log('EXCCC');
-for(var i = 0; i < producoes.length; i++){
-	for (var j = 0 ; j < nTerminaisExclusão.length ; j++) {
-		var verificar = producoes[i].prod.indexOf(nTerminaisExclusão[j]);
-		console.log(verificar + 'Posicao encontrado >>  ' + producoes[i].prod);
-		if(verificar !== -1){
-		console.log('Excluido >>> ' + producoes[i].prod);
-		producoes.splice(i, 1);
-		
-		}
-		}
-	}
-		
-
-}
-
-function ContadorSomenteNãoTerminais(nTerminais,producoes){
-	var v=0;
-for(var i = 0; i < producoes.length; i++){
-
-		for (var j = 0; j < nTerminais.length; j++){
-			if(producoes[i].prod === nTerminais[j]){
-				// Conta Unitaria
-				v++;
-				
-				
-			}
-		}
-}
-console.log(v + 'opax');
-return v;
-}
-
-function removeEstadosInvalidos(nTerminais, producoes){
-	var nTerminaisExclusão = [];
-    var verif = 0;
-
+function removeEstadosInvalidos(producoes){
 	for(var i = 0; i < producoes.length; i++){
-		for(var j = 0; j < nTerminais.length; j++){
-			if (producoes[i].prod === nTerminais[j]){
-				var arrayProds = criaArrayComProducoesDoEstadoX(nTerminais[j], producoes);				
+		for(var j = 0; j < nTerm.length; j++){
+			if (producoes[i].prod === nTerm[j]){
+				var arrayProds = criaArrayComProducoesDoEstadoX(nTerm[j], producoes);				
 				for(var k = 0; k < arrayProds.length; k++){
 					if (arrayProds[k].prod === producoes[i].estado){
-						if( verif === 0) {
-							nTerminaisExclusão.push(arrayProds[k].estado);
-						console.log(nTerminaisExclusão[0]);
-						nTerminaisExclusão.push(producoes[i].estado);
-						console.log(nTerminaisExclusão[1]);
-						Excluir(nTerminais,producoes,nTerminaisExclusão);
-						console.log('BOM ');
-						verif = 10;
-						} 
+						// Encontrou loop, irá eliminar os estados e todos as produções que os contém
+						var excluir = [arrayProds[k].estado, producoes[i].estado];
+ 						for (var l = 0; l < producoes.length; l++){
+ 							for (var m = 0; m < excluir.length; m++){
+ 								if (producoes[l].prod.indexOf(excluir[m]) > -1){
+ 									producoes.splice(l, 1);
+ 								}
+ 							}
+ 						}
 					}
 				}
 			}
 		}
 	}
-	
 }
 
-function removeUnitaria(nTerminais, producoes, v){
+function removeUnitaria(producoes){
 	var producoesAux = [];
 	var existeUnitaria = false;
 	// Gera novas produções e elimina a unitária
 	for(var i = 0; i < producoes.length; i++){
-		for (var j = 0; j < nTerminais.length; j++){
-			if(producoes[i].prod === nTerminais[j]){
+		for (var j = 0; j < nTerm.length; j++){
+			if(producoes[i].prod === nTerm[j]){
 				// Cria novas produções de acordo com a unitária
 				for(var k = 0; k < producoes.length; k++){
-					if (producoes[k].estado === nTerminais[j]){
-						var novaProdObj = new Producao(producoes[i].estado,producoes[k].prod,producoes[i].isInicial);
+					if (producoes[k].estado === nTerm[j]){
+						var novaProdObj = new Producao(producoes[i].estado, producoes[k].prod, producoes[i].isInicial);
 						producoesAux.push(novaProdObj);
 					}
 				}
@@ -123,18 +74,12 @@ function removeUnitaria(nTerminais, producoes, v){
 	}
 
 	// Depois de ajustar tudo, verificar se ainda existe produção unitária
-	for(var i = 0; i < producoes.length; i++){
-
-		for (var j = 0; j < nTerminais.length; j++){
-			if(producoes[i].prod === nTerminais[j]){
+	externo: for(var i = 0; i < producoes.length; i++){
+		for (var j = 0; j < nTerm.length; j++){
+			if(producoes[i].prod === nTerm[j]){
 				// Ainda existe unitária
-				v = 0;
-				console.log("Opa");
-
-				break;
-			}
-			else {
-				v = 9999;
+				existeUnitaria = true;
+				break externo;
 			}
 		}
 	}
@@ -147,9 +92,11 @@ function removeUnitaria(nTerminais, producoes, v){
 			}
 		}
 	}
+	
+	if (existeUnitaria){
+		removeUnitaria(producoes);
+	}
 }
-	
-	
 
 function criaArrayComProducoesDoEstadoX(estado, producoes){
 	var array = [];

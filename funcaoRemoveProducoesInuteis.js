@@ -4,7 +4,7 @@ var Producao = function(estado, prod, isInicial){
 	this.isInicial = isInicial;
 }
 
-function removerEstadosInuteis(nTerminais, producoes){
+function removerEstadosInuteis(producoes){
 	var estadoInicial;
 
 	// Mostra no console as produções antes de eliminar inúteis
@@ -25,8 +25,8 @@ function removerEstadosInuteis(nTerminais, producoes){
 		var gera = true;
 
 		externo: for (var j = 0; j < producoes[i].prod.length; j++){			
-			for (var k = 0; k < nTerminais.length; k++){
-				if (producoes[i].prod[j] === nTerminais[k]){
+			for (var k = 0; k < nTerm.length; k++){
+				if (producoes[i].prod[j] === nTerm[k]){
 					gera = false;
 					break externo;
 				}
@@ -64,7 +64,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 		}
 
 		if(!geraDir){					
-			if (verificaGeraIndiretamente(criaArrayComProducoesDoEstadoX(producoes[i].estado, producoes), producoes, nTerminais, geramTerminais)){
+			if (verificaGeraIndiretamente(criaArrayComProducoesDoEstadoX(producoes[i].estado, producoes), producoes, geramTerminais)){
 			geramTerminais.push(producoes[i].estado);
 			}
 		}
@@ -76,10 +76,10 @@ function removerEstadosInuteis(nTerminais, producoes){
 	}
 
 	// Elimina os estados que não geram terminais direta ou indiretamente
-	for(var i = 0; i < nTerminais.length; i++){				
+	for(var i = 0; i < nTerm.length; i++){				
 		var remove = true;
 		for (var j = 0; j < geramTerminais.length; j++){
-			if (nTerminais[i] == geramTerminais[j]){
+			if (nTerm[i] == geramTerminais[j]){
 				remove = false;
 				break;
 			}
@@ -89,7 +89,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 			// Elimina as produções que contém os terminal a ser eliminado
 			for(var j = 0; j < producoes.length; j++){
 				for(var k = 0; k < producoes[j].prod.length; k++){
-					if(nTerminais[i] === producoes[j].prod[k]){
+					if(nTerm[i] === producoes[j].prod[k]){
 						producoes.splice(j, 1);
 						j--;
 					}
@@ -106,7 +106,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 	var estadosAcessiveis = [];
 	estadosAcessiveis[0] = estadoInicial;
 	// Estados acessíveis a partir do estado inicial
-	verificaAcessiveis(criaArrayComProducoesDoEstadoX(estadoInicial, producoes), producoes, nTerminais, estadosAcessiveis);
+	verificaAcessiveis(criaArrayComProducoesDoEstadoX(estadoInicial, producoes), producoes, estadosAcessiveis);
 
 	console.log("Estados acessíveis a partir do inicial: ");
 	for (var i = 0; i < estadosAcessiveis.length; i++){
@@ -147,22 +147,22 @@ function removerEstadosInuteis(nTerminais, producoes){
 	imprime(producoes);
 }
 
-function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis){
+function verificaAcessiveis(prodEstado, producoes, estadosAcessiveis){
 	for(var i = 0; i < prodEstado.length; i++){
 		for(var j = 0; j < prodEstado[i].prod.length; j++){
-			extern: for(var k = 0; k < nTerminais.length; k++){
-				if (prodEstado[i].prod[j] === nTerminais[k]){
-					if (prodEstado[i].estado === nTerminais[k]){
+			extern: for(var k = 0; k < nTerm.length; k++){
+				if (prodEstado[i].prod[j] === nTerm[k]){
+					if (prodEstado[i].estado === nTerm[k]){
 						break;
 					} else {
 						// verifica se o estado já é acessível
 						for (var l = 0; l < estadosAcessiveis.length; l++){
-							if(nTerminais[k] === estadosAcessiveis[l]){
+							if(nTerm[k] === estadosAcessiveis[l]){
 								break extern;
 							}
 						}
-						estadosAcessiveis.push(nTerminais[k]);
-						verificaAcessiveis(criaArrayComProducoesDoEstadoX(nTerminais[k], producoes), producoes, nTerminais, estadosAcessiveis);
+						estadosAcessiveis.push(nTerm[k]);
+						verificaAcessiveis(criaArrayComProducoesDoEstadoX(nTerm[k], producoes), producoes, estadosAcessiveis);
 						break;
 					}
 				}
@@ -171,21 +171,21 @@ function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis
 	}
 }
 
-function verificaGeraIndiretamente(prodEstado, producoes, nTerminais, geramTerminais){
+function verificaGeraIndiretamente(prodEstado, producoes, geramTerminais){
 	for (var i = 0; i < prodEstado.length; i++) {
 		for(var j = 0; j < prodEstado[i].prod.length; j++){
-			for (var k = 0; k < nTerminais.length; k++){
-				if(prodEstado[i].prod[j] === nTerminais[k]){
+			for (var k = 0; k < nTerm.length; k++){
+				if(prodEstado[i].prod[j] === nTerm[k]){
 					// Se entrou no IF achou um terminal na produção
-					if (prodEstado[i].estado === nTerminais[k]){
+					if (prodEstado[i].estado === nTerm[k]){
 						break;
 					} else {
 						for (var l = 0; l < geramTerminais.length; l++){
-							if (nTerminais[k] === geramTerminais[l]){
+							if (nTerm[k] === geramTerminais[l]){
 								return true;
 							}
 						}
-						return verificaGeraIndiretamente(criaArrayComProducoesDoEstadoX(nTerminais[k], producoes), producoes, nTerminais, geramTerminais);
+						return verificaGeraIndiretamente(criaArrayComProducoesDoEstadoX(nTerm[k], producoes), producoes, geramTerminais);
 					}
 				} 
 			}
