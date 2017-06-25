@@ -14,3 +14,7 @@
 .tabs .indicator{
     background-color: #808080;
 }
+
+h5, p{
+    cursor: default;
+}
