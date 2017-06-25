@@ -1,4 +1,3 @@
-nTerm = nterm; //Passa referência
 var Producao = function(estado, prod, isInicial){
 	this.estado = estado;
 	this.prod = prod;
@@ -23,9 +22,9 @@ function removeProducoesUnitarias(producoes){
 
 function removeEstadosInvalidos(producoes){
 	for(var i = 0; i < producoes.length; i++){
-		for(var j = 0; j < nTerm.length; j++){
-			if (producoes[i].prod === nTerm[j]){
-				var arrayProds = criaArrayComProducoesDoEstadoX(nTerm[j], producoes);				
+		for(var j = 0; j < nterm.length; j++){
+			if (producoes[i].prod === nterm[j]){
+				var arrayProds = criaArrayComProducoesDoEstadoX(nterm[j], producoes);				
 				for(var k = 0; k < arrayProds.length; k++){
 					if (arrayProds[k].prod === producoes[i].estado){
 						// Encontrou loop, irá eliminar os estados e todos as produções que os contém
@@ -49,11 +48,11 @@ function removeUnitaria(producoes){
 	var existeUnitaria = false;
 	// Gera novas produções e elimina a unitária
 	for(var i = 0; i < producoes.length; i++){
-		for (var j = 0; j < nTerm.length; j++){
-			if(producoes[i].prod === nTerm[j]){
+		for (var j = 0; j < nterm.length; j++){
+			if(producoes[i].prod === nterm[j]){
 				// Cria novas produções de acordo com a unitária
 				for(var k = 0; k < producoes.length; k++){
-					if (producoes[k].estado === nTerm[j]){
+					if (producoes[k].estado === nterm[j]){
 						var novaProdObj = new Producao(producoes[i].estado, producoes[k].prod, producoes[i].isInicial);
 						producoesAux.push(novaProdObj);
 					}
@@ -76,8 +75,8 @@ function removeUnitaria(producoes){
 
 	// Depois de ajustar tudo, verificar se ainda existe produção unitária
 	externo: for(var i = 0; i < producoes.length; i++){
-		for (var j = 0; j < nTerm.length; j++){
-			if(producoes[i].prod === nTerm[j]){
+		for (var j = 0; j < nterm.length; j++){
+			if(producoes[i].prod === nterm[j]){
 				// Ainda existe unitária
 				existeUnitaria = true;
 				break externo;
