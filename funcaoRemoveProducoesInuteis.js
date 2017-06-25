@@ -1,4 +1,3 @@
-nTerm = nterm; //Passa referência
 var Producao = function(estado, prod, isInicial){
 	this.estado = estado;
 	this.prod = prod;
@@ -26,8 +25,8 @@ function removerEstadosInuteis(producoes){
 		var gera = true;
 
 		externo: for (var j = 0; j < producoes[i].prod.length; j++){			
-			for (var k = 0; k < nTerm.length; k++){
-				if (producoes[i].prod[j] === nTerm[k]){
+			for (var k = 0; k < nterm.length; k++){
+				if (producoes[i].prod[j] === nterm[k]){
 					gera = false;
 					break externo;
 				}
@@ -77,10 +76,10 @@ function removerEstadosInuteis(producoes){
 	}
 
 	// Elimina os estados que não geram terminais direta ou indiretamente
-	for(var i = 0; i < nTerm.length; i++){				
+	for(var i = 0; i < nterm.length; i++){				
 		var remove = true;
 		for (var j = 0; j < geramTerminais.length; j++){
-			if (nTerm[i] == geramTerminais[j]){
+			if (nterm[i] == geramTerminais[j]){
 				remove = false;
 				break;
 			}
@@ -90,7 +89,7 @@ function removerEstadosInuteis(producoes){
 			// Elimina as produções que contém os terminal a ser eliminado
 			for(var j = 0; j < producoes.length; j++){
 				for(var k = 0; k < producoes[j].prod.length; k++){
-					if(nTerm[i] === producoes[j].prod[k]){
+					if(nterm[i] === producoes[j].prod[k]){
 						producoes.splice(j, 1);
 						j--;
 					}
@@ -151,19 +150,19 @@ function removerEstadosInuteis(producoes){
 function verificaAcessiveis(prodEstado, producoes, estadosAcessiveis){
 	for(var i = 0; i < prodEstado.length; i++){
 		for(var j = 0; j < prodEstado[i].prod.length; j++){
-			extern: for(var k = 0; k < nTerm.length; k++){
-				if (prodEstado[i].prod[j] === nTerm[k]){
-					if (prodEstado[i].estado === nTerm[k]){
+			extern: for(var k = 0; k < nterm.length; k++){
+				if (prodEstado[i].prod[j] === nterm[k]){
+					if (prodEstado[i].estado === nterm[k]){
 						break;
 					} else {
 						// verifica se o estado já é acessível
 						for (var l = 0; l < estadosAcessiveis.length; l++){
-							if(nTerm[k] === estadosAcessiveis[l]){
+							if(nterm[k] === estadosAcessiveis[l]){
 								break extern;
 							}
 						}
-						estadosAcessiveis.push(nTerm[k]);
-						verificaAcessiveis(criaArrayComProducoesDoEstadoX(nTerm[k], producoes), producoes, estadosAcessiveis);
+						estadosAcessiveis.push(nterm[k]);
+						verificaAcessiveis(criaArrayComProducoesDoEstadoX(nterm[k], producoes), producoes, estadosAcessiveis);
 						break;
 					}
 				}
@@ -175,18 +174,18 @@ function verificaAcessiveis(prodEstado, producoes, estadosAcessiveis){
 function verificaGeraIndiretamente(prodEstado, producoes, geramTerminais){
 	for (var i = 0; i < prodEstado.length; i++) {
 		for(var j = 0; j < prodEstado[i].prod.length; j++){
-			for (var k = 0; k < nTerm.length; k++){
-				if(prodEstado[i].prod[j] === nTerm[k]){
+			for (var k = 0; k < nterm.length; k++){
+				if(prodEstado[i].prod[j] === nterm[k]){
 					// Se entrou no IF achou um terminal na produção
-					if (prodEstado[i].estado === nTerm[k]){
+					if (prodEstado[i].estado === nterm[k]){
 						break;
 					} else {
 						for (var l = 0; l < geramTerminais.length; l++){
-							if (nTerm[k] === geramTerminais[l]){
+							if (nterm[k] === geramTerminais[l]){
 								return true;
 							}
 						}
-						return verificaGeraIndiretamente(criaArrayComProducoesDoEstadoX(nTerm[k], producoes), producoes, geramTerminais);
+						return verificaGeraIndiretamente(criaArrayComProducoesDoEstadoX(nterm[k], producoes), producoes, geramTerminais);
 					}
 				} 
 			}
