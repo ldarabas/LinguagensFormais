@@ -137,6 +137,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 				if (estadoRemover === producoes[k].estado){
 					producoes.splice(k, 1);
 					k--;
+					i--;
 				}
 			}
 		}

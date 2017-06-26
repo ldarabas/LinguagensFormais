@@ -17,7 +17,6 @@ var Producao = function(estado, prod, isInicial){
 //var prod9 = new Producao('W', 'bB', false);
 //var prod10 = new Producao('W', 'bb', false);
 //var prod11 = new Producao('W', '&', false);
-//
 //var terminais = ['a', 'b', '&'];
 //var nTerminais = ['J', 'B', 'H', 'W'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
@@ -42,6 +41,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['S', 'C', 'D'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4];
 
+// VERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 //Uniárias 1
 //var prod0 = new Producao('J', 'aCb', true);
 //var prod1 = new Producao('J', 'CA', true);
@@ -53,6 +53,7 @@ var Producao = function(estado, prod, isInicial){
 //var prod7 = new Producao('C', 'D', false);
 //var prod8 = new Producao('D', 'aA', false);
 //var prod9 = new Producao('D', 'bb', false);
+// Adidiconar um D para vazio aqui
 //
 //var terminais = ['a', 'b', 'c'];
 //var nTerminais = ['J', 'A', 'C', 'D'];
@@ -68,6 +69,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['S', 'A'];
 //var producoes = [prod0, prod1, prod2, prod3];
 
+// VERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 //Unitárias 3
 //var prod0 = new Producao('S', 'AsB', true);
 //var prod1 = new Producao('S', 'A', true);
@@ -82,6 +84,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['S', 'A', 'B', 'J', 'H'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7];
 
+// OK
 //Unitárias 4
 //var prod0 = new Producao('S', 'bS', true);
 //var prod1 = new Producao('S', 'A', true);
@@ -95,22 +98,22 @@ var Producao = function(estado, prod, isInicial){
 //var producoes = [prod0, prod1, prod2, prod3, prod4]//, prod5];
 
 //Unitárias 5
-//var prod0 = new Producao('S', 'A', true);
-//var prod1 = new Producao('A', 'B', false);
-//var prod2 = new Producao('B', 'C', false);
-//var prod3 = new Producao('C', 'D', false);
-//var prod4 = new Producao('D', 'E', false);
-//var prod5 = new Producao('E', 'F', false);
-//var prod6 = new Producao('F', 'G', false);
-//var prod7 = new Producao('G', 'H', false);
-//var prod8 = new Producao('H', 'I', false);
-//var prod9 = new Producao('I', 'J', false);
-//var prod10 = new Producao('J', 'a', false);
-//var prod11 = new Producao('D', 'J', false);
-//
-//var terminais = ['a'];
-//var nTerminais = ['S', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-//var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
+var prod0 = new Producao('S', 'A', true);
+var prod1 = new Producao('A', 'B', false);
+var prod2 = new Producao('B', 'C', false);
+var prod3 = new Producao('C', 'D', false);
+var prod4 = new Producao('D', 'E', false);
+var prod5 = new Producao('E', 'F', false);
+var prod6 = new Producao('F', 'G', false);
+var prod7 = new Producao('G', 'H', false);
+var prod8 = new Producao('H', 'I', false);
+var prod9 = new Producao('I', 'J', false);
+var prod10 = new Producao('J', 'a', false);
+var prod11 = new Producao('D', 'J', false);
+
+var terminais = ['a'];
+var nTerminais = ['S', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
 
 // Inúteis 1
 //var prod0 = new Producao('S', 'baB', true);
@@ -147,14 +150,13 @@ var Producao = function(estado, prod, isInicial){
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8];
 
 //Inúteis 3
-var prod0 = new Producao('S', 'aAa', true);
-var prod1 = new Producao('A', 'a', false);
-var prod2 = new Producao('A', 'S', false);
-var prod3 = new Producao('C', 'c', false);
-
-var terminais = ['a', 'c'];
-var nTerminais = ['S', 'A', 'C'];
-var producoes = [prod0, prod1, prod2, prod3];
+//var prod0 = new Producao('S', 'aAa', true);
+//var prod1 = new Producao('A', 'a', false);
+//var prod2 = new Producao('A', 'S', false);
+//var prod3 = new Producao('C', 'c', false);
+//var terminais = ['a', 'c'];
+//var nTerminais = ['S', 'A', 'C'];
+//var producoes = [prod0, prod1, prod2, prod3];
 
 function testeVazio(){
 	removeProducoesVazias(producoes);
