@@ -86,6 +86,7 @@ function removeProducoesVazias(producoes){
 		for (var j = i + 1; j < producoes.length; j++){
 			if (producoes[i].estado === producoes[j].estado && producoes[i].prod === producoes[j].prod){
 				producoes.splice(j, 1);
+				j--;
 			}
 		}
 	}

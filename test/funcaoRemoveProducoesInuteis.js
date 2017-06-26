@@ -118,6 +118,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 		for (var j = i + 1; j < estadosAcessiveis.length; j++){
 			if (estadosAcessiveis[i] === estadosAcessiveis[j]){
 				estadosAcessiveis.splice(j,	 1);
+				j--;
 			}
 		}
 	}

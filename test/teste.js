@@ -4,6 +4,7 @@ var Producao = function(estado, prod, isInicial){
 	this.isInicial = isInicial;
 }
 
+// OK
 //Vazias 1
 //var prod0 = new Producao('J', 'aWBbH', true);
 //var prod1 = new Producao('J', 'bBb', true);			
@@ -21,6 +22,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['J', 'B', 'H', 'W'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
 
+// OK
 //Vazias 2
 //var prod0 = new Producao('S', 'aB', true);
 //var prod1 = new Producao('B', 'bB', false);
@@ -30,6 +32,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['S', 'B'];
 //var producoes = [prod0, prod1, prod2];
 
+// OK
 //Vazias 3
 //var prod0 = new Producao('S', 'bDCe', true);
 //var prod1 = new Producao('D', 'dD', false);
@@ -41,7 +44,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['S', 'C', 'D'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4];
 
-// VERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+// OK
 //Uniárias 1
 //var prod0 = new Producao('J', 'aCb', true);
 //var prod1 = new Producao('J', 'CA', true);
@@ -53,12 +56,13 @@ var Producao = function(estado, prod, isInicial){
 //var prod7 = new Producao('C', 'D', false);
 //var prod8 = new Producao('D', 'aA', false);
 //var prod9 = new Producao('D', 'bb', false);
-// Adidiconar um D para vazio aqui
+//var prod10 = new Producao('D', '&', false);
 //
 //var terminais = ['a', 'b', 'c'];
 //var nTerminais = ['J', 'A', 'C', 'D'];
-//var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9];
+//var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10];
 
+// OK
 //Unitárias 2 
 //var prod0 = new Producao('S', 'bS', true);
 //var prod1 = new Producao('S', 'A', true);
@@ -69,7 +73,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['S', 'A'];
 //var producoes = [prod0, prod1, prod2, prod3];
 
-// VERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+// OK
 //Unitárias 3
 //var prod0 = new Producao('S', 'AsB', true);
 //var prod1 = new Producao('S', 'A', true);
@@ -97,6 +101,7 @@ var Producao = function(estado, prod, isInicial){
 //var nTerminais = ['S', 'A', 'B'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4]//, prod5];
 
+// OK
 //Unitárias 5
 var prod0 = new Producao('S', 'A', true);
 var prod1 = new Producao('A', 'B', false);
@@ -115,6 +120,7 @@ var terminais = ['a'];
 var nTerminais = ['S', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
 
+// OK
 // Inúteis 1
 //var prod0 = new Producao('S', 'baB', true);
 //var prod1 = new Producao('S', 'bBcG', true);			
@@ -134,6 +140,7 @@ var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, 
 //var nTerminais = ['S', 'A', 'B', 'E', 'F', 'G'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11, prod12];
 
+// OK
 // Inúteis 2
 //var prod0 = new Producao('S', 'aA', true);
 //var prod1 = new Producao('A', 'a', false);
@@ -149,11 +156,13 @@ var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, 
 //var nTerminais = ['S', 'A', 'B', 'C', 'D'];
 //var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8];
 
+// OK
 //Inúteis 3
 //var prod0 = new Producao('S', 'aAa', true);
 //var prod1 = new Producao('A', 'a', false);
 //var prod2 = new Producao('A', 'S', false);
 //var prod3 = new Producao('C', 'c', false);
+//
 //var terminais = ['a', 'c'];
 //var nTerminais = ['S', 'A', 'C'];
 //var producoes = [prod0, prod1, prod2, prod3];

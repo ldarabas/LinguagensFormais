@@ -43,6 +43,7 @@ function removerEstadosInuteis(producoes){
 		for (var j = i + 1; j < geramTerminais.length; j++){
 			if (geramTerminais[i] === geramTerminais[j]){
 				geramTerminais.splice(j, 1);
+				j--;
 			}
 		}
 	}
@@ -118,6 +119,7 @@ function removerEstadosInuteis(producoes){
 		for (var j = i + 1; j < estadosAcessiveis.length; j++){
 			if (estadosAcessiveis[i] === estadosAcessiveis[j]){
 				estadosAcessiveis.splice(j,	 1);
+				j--;
 			}
 		}
 	}
