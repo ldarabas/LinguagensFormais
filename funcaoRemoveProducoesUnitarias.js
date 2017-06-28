@@ -33,7 +33,6 @@ function removeEstadosInvalidos(producoes){
  							for (var m = 0; m < excluir.length; m++){
  								if (producoes[l].prod.indexOf(excluir[m]) > -1){
  									producoes.splice(l, 1);
- 									l--;
  								}
  							}
  						}
@@ -60,7 +59,6 @@ function removeUnitaria(producoes){
 				}
 				// Elimina a produção unitária
 				producoes.splice(i, 1);
-				i--;
 			}
 		}
 	}
@@ -91,7 +89,6 @@ function removeUnitaria(producoes){
 		for (var j = i + 1; j < producoes.length; j++){
 			if (producoes[i].estado === producoes[j].estado && producoes[i].prod === producoes[j].prod){
 				producoes.splice(j, 1);
-				j--;
 			}
 		}
 	}
