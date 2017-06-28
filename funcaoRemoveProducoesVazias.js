@@ -15,7 +15,6 @@ function removeProducoesVazias(producoes){
 		if (producoes[i].prod === '&') {
         	estadosComVazio[j] = producoes[i].estado;
         	producoes.splice(i, 1);
-        	i--;
         	j++;
 		}
 	}
@@ -87,19 +86,7 @@ function removeProducoesVazias(producoes){
 		for (var j = i + 1; j < producoes.length; j++){
 			if (producoes[i].estado === producoes[j].estado && producoes[i].prod === producoes[j].prod){
 				producoes.splice(j, 1);
-				j--;
 			}
-		}
-	}
-
-	// Após ter removido vazio, pode haver uma sobre, por exemplo C -> D e D -> &, ao remover o vazio do D, 
-	// não criado produção no C pois contém somente um D que apontava para vazio, então vai remover o C -> D aqui
-	for (var i = 0; i < producoes.length; i++){
-		for (var j = 0; j < estadosComVazio.length; j ++){
-			if (producoes[i].prod === estadosComVazio[j]){
-				producoes.splice(i, 1);
-				i--;
-			}	
 		}
 	}
 
