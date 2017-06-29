@@ -1,15 +1,9 @@
-var Producao = function(estado, prod, isInicial){
-	this.estado = estado;
-	this.prod = prod;
-	this.isInicial = isInicial;
-}
-
-function removerEstadosInuteis(nTerminais, producoes){
+function removerEstadosInuteis(producoes){
 	var estadoInicial;
 
 	// Mostra no console as produções antes de eliminar inúteis
 	console.log('Produções antes de eliminar os inúteis: ');
-	imprime(producoes);
+	imprimeFuncInuteis(producoes);
 
 	// Procura pelo estado inicial
 	for (var i = 0; i < producoes.length; i++){
@@ -85,7 +79,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 			}
 		}
 
-		if(remove){
+		if(remove){			
 			// Elimina as produções que contém os terminal a ser eliminado
 			for(var j = 0; j < producoes.length; j++){
 				for(var k = 0; k < producoes[j].prod.length; k++){
@@ -101,7 +95,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 
 	// Mostra resultando após 1ª parte
 	console.log('Produções após 1ª parte: ');
-	imprime(producoes);
+	imprimeFuncInuteis(producoes);
 
 	var estadosAcessiveis = [];
 	estadosAcessiveis[0] = estadoInicial;
@@ -146,7 +140,7 @@ function removerEstadosInuteis(nTerminais, producoes){
 
 	// Mostra resultando após 2ª parte
 	console.log('Produções após 2ª parte: ');
-	imprime(producoes);
+	imprimeFuncInuteis(producoes);
 }
 
 function verificaAcessiveis(prodEstado, producoes, nTerminais, estadosAcessiveis){
@@ -180,7 +174,7 @@ function verificaGeraIndiretamente(prodEstado, producoes, nTerminais, geramTermi
 				if(prodEstado[i].prod[j] === nTerminais[k]){
 					// Se entrou no IF achou um terminal na produção
 					if (prodEstado[i].estado === nTerminais[k]){
-						break;
+						return;
 					} else {
 						for (var l = 0; l < geramTerminais.length; l++){
 							if (nTerminais[k] === geramTerminais[l]){
@@ -206,7 +200,7 @@ function criaArrayComProducoesDoEstadoX(estado, producoes){
 	return array;
 }
 
-function imprime(producoes){
+function imprimeFuncInuteis(producoes){
 	for (var i = 0; i < producoes.length; i++){
 		console.log(producoes[i].estado + ' ' + producoes[i].prod + ' ' + producoes[i].isInicial);			
 	}

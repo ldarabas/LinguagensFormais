@@ -103,22 +103,22 @@ var Producao = function(estado, prod, isInicial){
 
 // OK
 //Unitárias 5
-var prod0 = new Producao('S', 'A', true);
-var prod1 = new Producao('A', 'B', false);
-var prod2 = new Producao('B', 'C', false);
-var prod3 = new Producao('C', 'D', false);
-var prod4 = new Producao('D', 'E', false);
-var prod5 = new Producao('E', 'F', false);
-var prod6 = new Producao('F', 'G', false);
-var prod7 = new Producao('G', 'H', false);
-var prod8 = new Producao('H', 'I', false);
-var prod9 = new Producao('I', 'J', false);
-var prod10 = new Producao('J', 'a', false);
-var prod11 = new Producao('D', 'J', false);
-
-var terminais = ['a'];
-var nTerminais = ['S', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
+//var prod0 = new Producao('S', 'A', true);
+//var prod1 = new Producao('A', 'B', false);
+//var prod2 = new Producao('B', 'C', false);
+//var prod3 = new Producao('C', 'D', false);
+//var prod4 = new Producao('D', 'E', false);
+//var prod5 = new Producao('E', 'F', false);
+//var prod6 = new Producao('F', 'G', false);
+//var prod7 = new Producao('G', 'H', false);
+//var prod8 = new Producao('H', 'I', false);
+//var prod9 = new Producao('I', 'J', false);
+//var prod10 = new Producao('J', 'a', false);
+//var prod11 = new Producao('D', 'J', false);
+//
+//var terminais = ['a'];
+//var nTerminais = ['S', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+//var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11];
 
 // OK
 // Inúteis 1
@@ -167,14 +167,34 @@ var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, 
 //var nTerminais = ['S', 'A', 'C'];
 //var producoes = [prod0, prod1, prod2, prod3];
 
+// Combinada
+var prod0 = new Producao('S', 'aS', true);
+var prod1 = new Producao('S', 'A', true);			
+var prod2 = new Producao('S', 'C', true);
+var prod3 = new Producao('A', 'a', false);
+var prod4 = new Producao('B', 'aaD', false);
+var prod5 = new Producao('C', 'aCD', false);
+var prod6 = new Producao('D', 'bD', false);
+var prod7 = new Producao('D', '&', false);
+
+var terminais = ['a', 'b', '&'];
+var nTerminais = ['S', 'A', 'B', 'C', 'D'];
+var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7];
+
 function testeVazio(){
 	removeProducoesVazias(producoes);
 }
 
 function testeUnitarias(){
-	removeProducoesUnitarias(nTerminais, producoes);
+	removeProducoesUnitarias(producoes);
 }
 
 function testeInuteis(){
-	removerEstadosInuteis(nTerminais, producoes);
+	removerEstadosInuteis(producoes);
+}
+
+function testeCombinada(){
+	removeProducoesUnitarias(producoes);
+	removerEstadosInuteis(producoes);
+	
 }

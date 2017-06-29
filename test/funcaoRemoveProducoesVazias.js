@@ -1,13 +1,7 @@
-var Producao = function(estado, prod, isInicial){
-	this.estado = estado;
-	this.prod = prod;
-	this.isInicial = isInicial;
-}
-
 function removeProducoesVazias(producoes){
 	// Mostra no console as produções antes de eliminar vazios
 	console.log('Produções antes de eliminar os vazios: ');
-	imprime(producoes);
+	imprimeFuncVazias(producoes);
 
 	var estadosComVazio = [];
 	// Armazena os estados com vazio em um array auxiliar
@@ -19,7 +13,7 @@ function removeProducoesVazias(producoes){
 		}
 	}
 
-	//Imprime estados que contém vazios
+	//imprimeFuncVazias estados que contém vazios
 	console.log("Estados com vazio:");
 	for (var i = 0; i < estadosComVazio.length; i++){
 		console.log(estadosComVazio[i]);
@@ -70,7 +64,7 @@ function removeProducoesVazias(producoes){
 	}
 
 	console.log("producoes criadas: ");
-	imprime(producoesAux);
+	imprimeFuncVazias(producoesAux);
 
 	// Coloca as novas produções criada no array auxiliar, passando para o array principal.			
 	if (producoesAux.length > 0){
@@ -93,7 +87,7 @@ function removeProducoesVazias(producoes){
 
 	// Mostra no console as produções após eliminar vazios
 	console.log('Produções após eliminar os vazios: ');
-	imprime(producoes);
+	imprimeFuncVazias(producoes);
 
 }
 
@@ -105,7 +99,7 @@ function contaOcorrencias(prod, estadosComVazio){
 	return (prod.length - novaProd.length);
 }
 
-function imprime(producoes){
+function imprimeFuncVazias(producoes){
 	for (var i = 0; i < producoes.length; i++){
 		console.log(producoes[i].estado + ' ' + producoes[i].prod + ' ' + producoes[i].isInicial);			
 	}
