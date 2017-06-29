@@ -79,7 +79,7 @@ function removerEstadosInuteis(producoes){
 			}
 		}
 
-		if(remove){			
+		if(remove){
 			// Elimina as produções que contém os terminal a ser eliminado
 			for(var j = 0; j < producoes.length; j++){
 				for(var k = 0; k < producoes[j].prod.length; k++){
@@ -112,7 +112,7 @@ function removerEstadosInuteis(producoes){
 		for (var j = i + 1; j < estadosAcessiveis.length; j++){
 			if (estadosAcessiveis[i] === estadosAcessiveis[j]){
 				estadosAcessiveis.splice(j,	 1);
-				j--;
+				//j--;
 			}
 		}
 	}

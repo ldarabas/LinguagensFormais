@@ -1,15 +1,9 @@
-var Producao = function(estado, prod, isInicial){
-	this.estado = estado;
-	this.prod = prod;
-	this.isInicial = isInicial;
-}
-
 function removerEstadosInuteis(producoes){
 	var estadoInicial;
 
 	// Mostra no console as produções antes de eliminar inúteis
 	console.log('Produções antes de eliminar os inúteis: ');
-	imprime(producoes);
+	imprimeFuncInuteis(producoes);
 
 	// Procura pelo estado inicial
 	for (var i = 0; i < producoes.length; i++){
@@ -43,7 +37,6 @@ function removerEstadosInuteis(producoes){
 		for (var j = i + 1; j < geramTerminais.length; j++){
 			if (geramTerminais[i] === geramTerminais[j]){
 				geramTerminais.splice(j, 1);
-				j--;
 			}
 		}
 	}
@@ -86,13 +79,12 @@ function removerEstadosInuteis(producoes){
 			}
 		}
 
-		if(remove){
+		if(remove){			
 			// Elimina as produções que contém os terminal a ser eliminado
 			for(var j = 0; j < producoes.length; j++){
 				for(var k = 0; k < producoes[j].prod.length; k++){
 					if(nterm[i] === producoes[j].prod[k]){
 						producoes.splice(j, 1);
-						j--;
 					}
 				}
 			}
@@ -102,7 +94,7 @@ function removerEstadosInuteis(producoes){
 
 	// Mostra resultando após 1ª parte
 	console.log('Produções após 1ª parte: ');
-	imprime(producoes);
+	imprimeFuncInuteis(producoes);
 
 	var estadosAcessiveis = [];
 	estadosAcessiveis[0] = estadoInicial;
@@ -147,7 +139,7 @@ function removerEstadosInuteis(producoes){
 
 	// Mostra resultando após 2ª parte
 	console.log('Produções após 2ª parte: ');
-	imprime(producoes);
+	imprimeFuncInuteis(producoes);
 }
 
 function verificaAcessiveis(prodEstado, producoes, estadosAcessiveis){
@@ -181,7 +173,7 @@ function verificaGeraIndiretamente(prodEstado, producoes, geramTerminais){
 				if(prodEstado[i].prod[j] === nterm[k]){
 					// Se entrou no IF achou um terminal na produção
 					if (prodEstado[i].estado === nterm[k]){
-						break;
+						return;
 					} else {
 						for (var l = 0; l < geramTerminais.length; l++){
 							if (nterm[k] === geramTerminais[l]){
@@ -207,7 +199,7 @@ function criaArrayComProducoesDoEstadoX(estado, producoes){
 	return array;
 }
 
-function imprime(producoes){
+function imprimeFuncInuteis(producoes){
 	for (var i = 0; i < producoes.length; i++){
 		console.log(producoes[i].estado + ' ' + producoes[i].prod + ' ' + producoes[i].isInicial);			
 	}

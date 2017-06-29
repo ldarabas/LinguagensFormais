@@ -168,6 +168,19 @@ var Producao = function(estado, prod, isInicial){
 //var producoes = [prod0, prod1, prod2, prod3];
 
 // Combinada
+//var prod0 = new Producao('S', 'aS', true);
+//var prod1 = new Producao('S', 'A', true);			
+//var prod2 = new Producao('S', 'C', true);
+//var prod3 = new Producao('A', 'a', false);
+//var prod4 = new Producao('B', 'aaD', false);
+//var prod5 = new Producao('C', 'aCD', false);
+//var prod6 = new Producao('D', 'bD', false);
+//var prod7 = new Producao('D', '&', false);
+//
+//var terminais = ['a', 'b', '&'];
+//var nTerminais = ['S', 'A', 'B', 'C', 'D'];
+//var producoes = [prod0, prod1, prod2, prod3, prod4, prod5, prod6, prod7];
+
 var prod0 = new Producao('S', 'aS', true);
 var prod1 = new Producao('S', 'A', true);			
 var prod2 = new Producao('S', 'C', true);

@@ -9,6 +9,7 @@ var count = 1,
   tabActive,
   producaoSemVazio = null,
   producaoUnitaria = null,
+  producaoCombinada = null,
   nTermKeyUpError = false,
   audio = new Audio("audio/audio.mp3"),
   audio2 = new Audio("audio/audio2.mp3");
@@ -320,7 +321,6 @@ function setTabActive() {
         }
         break;
       case 1:
-        removeProducoesVazias(producaoUnitaria);
         removeProducoesUnitarias(producaoUnitaria);
         console.log(producaoUnitaria);
         producaoUnitaria.sort(function(x, y) {
@@ -374,8 +374,7 @@ function setTabActive() {
         break;
       case 3:
         console.log("COMBINADA");
-        producaoCombinada = JSON.parse(JSON.stringify(producaoUnitaria)); //copy o array sem passar referencia
-        removerEstadosInuteis(producaoCombinada);
+        simplifica(producaoCombinada);        
         console.log(producaoCombinada);
         producaoCombinada.sort(function(x, y) {
           return x.isInicial === y.isInicial ? 0 : x.isInicial ? -1 : 1;

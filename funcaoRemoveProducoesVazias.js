@@ -1,13 +1,7 @@
-var Producao = function(estado, prod, isInicial){
-	this.estado = estado;
-	this.prod = prod;
-	this.isInicial = isInicial;
-}
-
 function removeProducoesVazias(producoes){
 	// Mostra no console as produções antes de eliminar vazios
 	console.log('Produções antes de eliminar os vazios: ');
-	imprime(producoes);
+	imprimeFuncVazias(producoes);
 
 	var estadosComVazio = [];
 	// Armazena os estados com vazio em um array auxiliar
@@ -15,12 +9,11 @@ function removeProducoesVazias(producoes){
 		if (producoes[i].prod === '&') {
         	estadosComVazio[j] = producoes[i].estado;
         	producoes.splice(i, 1);
-        	i--;
         	j++;
 		}
 	}
 
-	//Imprime estados que contém vazios
+	//imprimeFuncVazias estados que contém vazios
 	console.log("Estados com vazio:");
 	for (var i = 0; i < estadosComVazio.length; i++){
 		console.log(estadosComVazio[i]);
@@ -71,7 +64,7 @@ function removeProducoesVazias(producoes){
 	}
 
 	console.log("producoes criadas: ");
-	imprime(producoesAux);
+	imprimeFuncVazias(producoesAux);
 
 	// Coloca as novas produções criada no array auxiliar, passando para o array principal.			
 	if (producoesAux.length > 0){
@@ -92,20 +85,9 @@ function removeProducoesVazias(producoes){
 		}
 	}
 
-	// Após ter removido vazio, pode haver uma sobre, por exemplo C -> D e D -> &, ao remover o vazio do D, 
-	// não criado produção no C pois contém somente um D que apontava para vazio, então vai remover o C -> D aqui
-	for (var i = 0; i < producoes.length; i++){
-		for (var j = 0; j < estadosComVazio.length; j ++){
-			if (producoes[i].prod === estadosComVazio[j]){
-				producoes.splice(i, 1);
-				i--;
-			}	
-		}
-	}
-
 	// Mostra no console as produções após eliminar vazios
 	console.log('Produções após eliminar os vazios: ');
-	imprime(producoes);
+	imprimeFuncVazias(producoes);
 
 }
 
@@ -117,7 +99,7 @@ function contaOcorrencias(prod, estadosComVazio){
 	return (prod.length - novaProd.length);
 }
 
-function imprime(producoes){
+function imprimeFuncVazias(producoes){
 	for (var i = 0; i < producoes.length; i++){
 		console.log(producoes[i].estado + ' ' + producoes[i].prod + ' ' + producoes[i].isInicial);			
 	}

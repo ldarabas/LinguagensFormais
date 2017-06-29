@@ -1,13 +1,10 @@
-var Producao = function(estado, prod, isInicial){
-	this.estado = estado;
-	this.prod = prod;
-	this.isInicial = isInicial;
-}
-
 function removeProducoesUnitarias(producoes){
+
+	removeProducoesVazias(producoes);
+
 	// Mostra no console as produções antes de remover unitárias
 	console.log('Produções antes de remover os unitárias: ');
-	imprime(producoes);
+	imprimeFuncUnitarias(producoes);
 
 	// Verifica se existe estados inválidos para eliminar. Ex: J -> H e H -> J
 	removeEstadosInvalidos(producoes);
@@ -17,7 +14,7 @@ function removeProducoesUnitarias(producoes){
 	
 	// Mostra no console as produções após remover unitárias
 	console.log('Produções após remover os unitárias: ');
-	imprime(producoes);
+	imprimeFuncUnitarias(producoes);
 }
 
 function removeEstadosInvalidos(producoes){
@@ -33,6 +30,7 @@ function removeEstadosInvalidos(producoes){
  							for (var m = 0; m < excluir.length; m++){
  								if (producoes[l].prod.indexOf(excluir[m]) > -1){
  									producoes.splice(l, 1);
+ 									l--;
  								}
  							}
  						}
@@ -59,6 +57,7 @@ function removeUnitaria(producoes){
 				}
 				// Elimina a produção unitária
 				producoes.splice(i, 1);
+				i--;
 			}
 		}
 	}
@@ -89,12 +88,13 @@ function removeUnitaria(producoes){
 		for (var j = i + 1; j < producoes.length; j++){
 			if (producoes[i].estado === producoes[j].estado && producoes[i].prod === producoes[j].prod){
 				producoes.splice(j, 1);
+				j--;
 			}
 		}
 	}
 	
 	if (existeUnitaria){
-		removeUnitaria(producoes);
+		removeUnitaria(nterm, producoes);
 	}
 }
 
@@ -108,7 +108,7 @@ function criaArrayComProducoesDoEstadoX(estado, producoes){
 	return array;
 }
 
-function imprime(producoes){
+function imprimeFuncUnitarias(producoes){
 	for (var i = 0; i < producoes.length; i++){
 		console.log(producoes[i].estado + ' ' + producoes[i].prod + ' ' + producoes[i].isInicial);			
 	}
